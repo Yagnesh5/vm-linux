@@ -1,0 +1,77 @@
+﻿ALTER TABLE [Question]
+Alter column LastUpdateBy nvarchar(128)
+go
+
+
+ALTER TABLE [dbo].[Question] WITH CHECK ADD  CONSTRAINT [FK_Question_User] FOREIGN KEY([LastUpdateBy])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+GO
+
+
+ALTER TABLE [Job]
+ADD Years_of_Exp decimal(18, 0);
+go
+ALTER TABLE [Job]
+ADD Location nvarchar(100);
+go
+ALTER TABLE [Job]
+ADD Contact_Person nvarchar(100);
+go
+
+ALTER TABLE [Client]
+ADD Contact_Person nvarchar(100);
+go
+ALTER TABLE [Client]
+ADD Client_PAN_No nvarchar(100);
+go
+
+ALTER TABLE [Candidate]
+ADD Relevant_Exp nvarchar(100);
+go
+ALTER TABLE [Candidate]
+ADD Preferred_Location nvarchar(100);
+go
+ALTER TABLE [Candidate]
+ADD Last_Job_change_reason nvarchar(MAX);
+go
+----------------------------------------------
+ALTER TABLE [dbo].[Candidate]
+ADD CurrentOrganisation nvarchar(max);
+go
+
+ALTER TABLE [dbo].[Candidate]
+DROP COLUMN  CandidateOffers;
+
+--------------------------------------------------------------
+
+USE [vRecruit]
+GO
+
+/****** Object:  Table [dbo].[CandidateTestResult]    Script Date: 23-Apr-19 12:27:28 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[CandidateTestResult](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[QuestionId] [int] NOT NULL,
+	[CandidateAnswerId] [int] NULL,
+	[IsMulti] [bit] NULL,
+	[TestName] [varchar](100) NULL,
+	[TestGroupId] [int] NULL,
+	[TestLink] [varchar](50) NULL,
+	[CandidateId] [int] NULL,
+	[AssignBy] [nvarchar](100) NULL,
+	[SubmitDate] [date] NULL,
+ CONSTRAINT [PK__Candidat__3214EC273732FC13] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06fe95a740634a1dbc87694e42fd8ff4" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="vRecruitModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vRecruitModel.AccessPermission" Width="1.5" PointX="5.25" PointY="18.625" />
+        <EntityTypeShape EntityType="vRecruitModel.Activity" Width="1.5" PointX="8.25" PointY="38.125" />
+        <EntityTypeShape EntityType="vRecruitModel.ActivityType" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vRecruitModel.Answer" Width="1.5" PointX="13" PointY="35" />
+        <EntityTypeShape EntityType="vRecruitModel.AspNetRole" Width="1.5" PointX="3" PointY="23.25" />
+        <EntityTypeShape EntityType="vRecruitModel.AspNetUserClaim" Width="1.5" PointX="7.5" PointY="23.875" />
+        <EntityTypeShape EntityType="vRecruitModel.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="21.375" />
+        <EntityTypeShape EntityType="vRecruitModel.AspNetUser" Width="1.5" PointX="5.25" PointY="23.375" />
+        <EntityTypeShape EntityType="vRecruitModel.Candidate" Width="1.5" PointX="3" PointY="38" />
+        <EntityTypeShape EntityType="vRecruitModel.CandidateExam" Width="1.5" PointX="5.25" PointY="35.25" />
+        <EntityTypeShape EntityType="vRecruitModel.CandidatesResume" Width="1.5" PointX="5.25" PointY="46.75" />
+        <EntityTypeShape EntityType="vRecruitModel.CandidateTestRecord" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vRecruitModel.CandidateTestResult" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vRecruitModel.CandidateTestURL" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vRecruitModel.CandidateUpload" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vRecruitModel.City" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="vRecruitModel.Client" Width="1.5" PointX="3" PointY="26.25" />
+        <EntityTypeShape EntityType="vRecruitModel.ClientCandidateMapping" Width="1.5" PointX="5.25" PointY="40" />
+        <EntityTypeShape EntityType="vRecruitModel.Company" Width="1.5" PointX="7.5" PointY="31.625" />
+        <EntityTypeShape EntityType="vRecruitModel.Contact" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="vRecruitModel.Country" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="vRecruitModel.Customer" Width="1.5" PointX="0.75" PointY="27.375" />
+        <EntityTypeShape EntityType="vRecruitModel.Entity" Width="1.5" PointX="3" PointY="19.375" />
+        <EntityTypeShape EntityType="vRecruitModel.Exam" Width="1.5" PointX="3" PointY="34.625" />
+        <EntityTypeShape EntityType="vRecruitModel.Feedback" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vRecruitModel.InterviewEmotion" Width="1.5" PointX="7.5" PointY="50.125" />
+        <EntityTypeShape EntityType="vRecruitModel.InterviewFeedback" Width="1.5" PointX="10.5" PointY="43.5" />
+        <EntityTypeShape EntityType="vRecruitModel.InterviewQuestionsTime" Width="1.5" PointX="7.5" PointY="43.25" />
+        <EntityTypeShape EntityType="vRecruitModel.Interview" Width="1.5" PointX="5.25" PointY="43.25" />
+        <EntityTypeShape EntityType="vRecruitModel.Job" Width="1.5" PointX="5.25" PointY="30.5" />
+        <EntityTypeShape EntityType="vRecruitModel.MCallerData" Width="1.5" PointX="5.25" PointY="49.5" />
+        <EntityTypeShape EntityType="vRecruitModel.NextAction" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="vRecruitModel.Question" Width="1.5" PointX="10.75" PointY="27.625" />
+        <EntityTypeShape EntityType="vRecruitModel.QuestionAnswerImage" Width="1.5" PointX="13" PointY="27.5" />
+        <EntityTypeShape EntityType="vRecruitModel.QuestionGroup" Width="1.5" PointX="9.75" PointY="34.875" />
+        <EntityTypeShape EntityType="vRecruitModel.SendMesssage" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="vRecruitModel.SkillMaster" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="vRecruitModel.Skill" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="vRecruitModel.State" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="vRecruitModel.sysdiagram" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="vRecruitModel.Test" Width="1.5" PointX="13" PointY="31" />
+        <EntityTypeShape EntityType="vRecruitModel.UserMapping" Width="1.5" PointX="8.25" PointY="28.125" />
+        <AssociationConnector Association="vRecruitModel.FK_AccessPermission_Entity" />
+        <AssociationConnector Association="vRecruitModel.FK_AccessPermission_Entity1" />
+        <AssociationConnector Association="vRecruitModel.FK_Activity_Candidate" />
+        <AssociationConnector Association="vRecruitModel.FK_Activity_Companies" />
+        <AssociationConnector Association="vRecruitModel.FK_Activity_Job" />
+        <AssociationConnector Association="vRecruitModel.FK_Answer_Question" />
+        <AssociationConnector Association="vRecruitModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="vRecruitModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="vRecruitModel.FK_AspNetUsers_Client" />
+        <AssociationConnector Association="vRecruitModel.FK_Companies_AspNetUsers" />
+        <AssociationConnector Association="vRecruitModel.FK_InterviewFeedback_AspNetUsers" />
+        <AssociationConnector Association="vRecruitModel.FK_Question_User" />
+        <AssociationConnector Association="vRecruitModel.FK_Candidate_Customer" />
+        <AssociationConnector Association="vRecruitModel.FK_CandidateExam_Candidate" />
+        <AssociationConnector Association="vRecruitModel.FK_CandidatesResume_Candidate" />
+        <AssociationConnector Association="vRecruitModel.FK_Interview_Candidate" />
+        <AssociationConnector Association="vRecruitModel.FK_CandidateExam_Customer" />
+        <AssociationConnector Association="vRecruitModel.FK_CandidateExam_Job" />
+        <AssociationConnector Association="vRecruitModel.FK_City_State" />
+        <AssociationConnector Association="vRecruitModel.FK_Client_Companies" />
+        <AssociationConnector Association="vRecruitModel.FK_Client_Customer" />
+        <AssociationConnector Association="vRecruitModel.FK_ClientCandidateMapping_Client" />
+        <AssociationConnector Association="vRecruitModel.FK_Job_Client" />
+        <AssociationConnector Association="vRecruitModel.FK_MCallerData_Client" />
+        <AssociationConnector Association="vRecruitModel.FK_UserMapping_Client" />
+        <AssociationConnector Association="vRecruitModel.FK__QuestionG__Compa__74AE54BC" />
+        <AssociationConnector Association="vRecruitModel.FK_Question_Companies" />
+        <AssociationConnector Association="vRecruitModel.FK_State_Country" />
+        <AssociationConnector Association="vRecruitModel.FK_Exam_Customer" />
+        <AssociationConnector Association="vRecruitModel.FK_Question_Customer" />
+        <AssociationConnector Association="vRecruitModel.FK_UserMapping_Customer" />
+        <AssociationConnector Association="vRecruitModel.FK_InterviewEmotions_Interview" />
+        <AssociationConnector Association="vRecruitModel.FK_Interview_InterviewFeedback" />
+        <AssociationConnector Association="vRecruitModel.FK_InterviewQuestionsTime_Interview" />
+        <AssociationConnector Association="vRecruitModel.FK_InterviewQuestionsTime_Question" />
+        <AssociationConnector Association="vRecruitModel.FK_QuestionAnswerImages_Question" />
+        <AssociationConnector Association="vRecruitModel.FK_Test_Question" />
+        <AssociationConnector Association="vRecruitModel.FK_Test_QuestionGroup" />
+        <AssociationConnector Association="vRecruitModel.AspNetUserRoles" />
+        <AssociationConnector Association="vRecruitModel.FK_MCallerData_AspNetUsers" />
+        <AssociationConnector Association="vRecruitModel.FK_ClientCandidateMapping_Candidate" />
+        <AssociationConnector Association="vRecruitModel.FK_MCallerData_Candidate" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,3178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="vRecruitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccessPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" />
+          <Property Name="EntityId" Type="int" />
+          <Property Name="IsAdd" Type="bit" />
+          <Property Name="IsView" Type="bit" />
+          <Property Name="IsEdit" Type="bit" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsPrint" Type="bit" />
+          <Property Name="IsExport" Type="bit" />
+        </EntityType>
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityType" Type="nchar" MaxLength="10" />
+          <Property Name="Activity" Type="nvarchar(max)" />
+          <Property Name="ActivityDate" Type="datetime" />
+          <Property Name="ActivityRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActivityComplete" Type="bit" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="JobId" Type="int" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Companyid" Type="int" />
+        </EntityType>
+        <EntityType Name="ActivityType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityType" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="AnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestiondId" Type="int" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnswerCorrect" Type="bit" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CandidateDOB" Type="date" />
+          <Property Name="CandidateSkill" Type="nvarchar" MaxLength="50" />
+          <Property Name="CandidateExperience" Type="varchar" MaxLength="50" />
+          <Property Name="CandidateResume" Type="nvarchar(max)" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="LastUpdateBy" Type="uniqueidentifier" />
+          <Property Name="CandidatePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CandidateEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="CandidatePhone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="CandidateLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="CandidateLastJobChange" Type="nvarchar" MaxLength="50" />
+          <Property Name="SkypeId" Type="nvarchar" MaxLength="100" />
+          <Property Name="CurrentCTC" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExpectedCTC" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BuyoutOption" Type="bit" />
+          <Property Name="Education" Type="varchar" MaxLength="100" />
+          <Property Name="OffersInHand" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NoticePeriod" Type="int" />
+          <Property Name="ClientDesignation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="Relevant_Exp" Type="nvarchar" MaxLength="100" />
+          <Property Name="Preferred_Location" Type="nvarchar" MaxLength="100" />
+          <Property Name="Last_Job_change_reason" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CurrentOrganisation" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="CandidateVideo" Type="nvarchar(max)" />
+          <Property Name="PreviousDesignation" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CandidateExam">
+          <Key>
+            <PropertyRef Name="CandidateExamId" />
+          </Key>
+          <Property Name="CandidateExamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamDate" Type="datetime" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="JobId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="ExamAnswers" Type="nvarchar(max)" />
+          <Property Name="CandidateExamLinkId" Type="uniqueidentifier" />
+          <Property Name="CustomerId" Type="int" />
+        </EntityType>
+        <EntityType Name="CandidatesResumes">
+          <Key>
+            <PropertyRef Name="Candidate_resume_Id" />
+          </Key>
+          <Property Name="Candidate_resume_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="CandidateResume" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedDateString" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CandidateTestRecords">
+          <Key>
+            <PropertyRef Name="CandidateScoreId" />
+          </Key>
+          <Property Name="CandidateScoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="TestName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TestLink" Type="nvarchar(max)" />
+          <Property Name="TestStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="TestScore" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CandidateTestResult">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="CandidateAnswerId" Type="int" />
+          <Property Name="IsMulti" Type="bit" />
+          <Property Name="TestName" Type="varchar" MaxLength="100" />
+          <Property Name="TestGroupId" Type="int" />
+          <Property Name="TestLink" Type="varchar" MaxLength="50" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="AssignBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubmitDate" Type="date" />
+        </EntityType>
+        <EntityType Name="CandidateTestURLs">
+          <Key>
+            <PropertyRef Name="CandTestURLId" />
+          </Key>
+          <Property Name="CandTestURLId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandId" Type="int" Nullable="false" />
+          <Property Name="TestURLID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateUploads">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qualification" Type="nvarchar(max)" />
+          <Property Name="Location" Type="nvarchar(max)" />
+          <Property Name="Company" Type="nvarchar(max)" />
+          <Property Name="Project" Type="nvarchar(max)" />
+          <Property Name="Technology" Type="nvarchar(max)" />
+          <Property Name="Achievement" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="StateId" Type="int" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientWWW" Type="nvarchar(max)" />
+          <Property Name="ClientGST" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientStatus" Type="bit" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="LastUpdateBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdateDate" Type="date" />
+          <Property Name="Contact_Person" Type="nvarchar" MaxLength="100" />
+          <Property Name="Client_PAN_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ClientCity" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClientCountryId" Type="int" />
+        </EntityType>
+        <EntityType Name="ClientCandidateMappings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="CandidateId" Type="int" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CompanyAddress" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CompanyEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pincode" Type="nvarchar(max)" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="LastUpdateDate" Type="date" />
+          <Property Name="LastUpdateBy" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactPosition" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerGST" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerWWW" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerRemarks" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamStatus" Type="bit" />
+          <Property Name="ExamSkill" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExamQuestions" Type="nvarchar(max)" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="LastUpdateBy" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackId" />
+          </Key>
+          <Property Name="FeedbackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="FeedbackRemarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="InterviewEmotions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InterviewId" Type="int" />
+          <Property Name="EmotionTime" Type="float" />
+          <Property Name="EmotionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmotionScore" Type="float" />
+        </EntityType>
+        <EntityType Name="InterviewFeedbacks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InterviewId" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CommentDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InterviewQuestionsTimes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InterviewId" Type="int" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="QuestionTime" Type="float" />
+          <Property Name="IsAnswerCorrect" Type="bit" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Interviews">
+          <Key>
+            <PropertyRef Name="InterviewId" />
+          </Key>
+          <Property Name="InterviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="TestName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InterviewVideo" Type="nvarchar(max)" />
+          <Property Name="InterviewDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobName" Type="nvarchar(max)" />
+          <Property Name="JobDescription" Type="nvarchar(max)" />
+          <Property Name="JobStatus" Type="bit" />
+          <Property Name="JobCount" Type="int" />
+          <Property Name="JobTargetDate" Type="datetime2" Precision="7" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="Years_of_Exp" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" />
+          <Property Name="Contact_Person" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MCallerDatas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallDuration" Type="nvarchar" MaxLength="10" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="CallType" Type="nvarchar" MaxLength="10" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="NextAction" Type="nvarchar(max)" />
+          <Property Name="SendSMSMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="NextActions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="QuestionStatus" Type="bit" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="QuestionSkill" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="QuestionGroupId" Type="int" />
+          <Property Name="LastUpdateBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="QuestionAnswerImages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="Images" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="QuestionGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="LastUpdateBy" Type="varchar" MaxLength="50" />
+          <Property Name="LastUpdateDate" Type="date" />
+        </EntityType>
+        <EntityType Name="SendMesssages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SkillMasters">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Skills" />
+          </Key>
+          <Property Name="Skills" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="CountryId" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="varchar(max)" />
+          <Property Name="GroupId" Type="int" />
+          <Property Name="QueId" Type="int" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="Testtime" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserMapping">
+          <Key>
+            <PropertyRef Name="UserMappingId" />
+          </Key>
+          <Property Name="UserMappingId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+        </EntityType>
+        <Association Name="FK__QuestionG__Compa__74AE54BC">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="0..1" />
+          <End Role="QuestionGroup" Type="Self.QuestionGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QuestionGroup">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessPermission_Entity">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="0..1" />
+          <End Role="AccessPermission" Type="Self.AccessPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccessPermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessPermission_Entity1">
+          <End Role="Entity" Type="Self.Entity" Multiplicity="0..1" />
+          <End Role="AccessPermission" Type="Self.AccessPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccessPermission">
+              <PropertyRef Name="EntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="0..1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="Companyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Job">
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="QuestiondId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateExam_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="CandidateExam" Type="Self.CandidateExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateExam">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateExam_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="CandidateExam" Type="Self.CandidateExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CandidateExam">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateExam_Job">
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+          <End Role="CandidateExam" Type="Self.CandidateExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="CandidateExam">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidatesResume_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="CandidatesResumes" Type="Self.CandidatesResumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidatesResumes">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCandidateMapping_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="ClientCandidateMappings" Type="Self.ClientCandidateMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="ClientCandidateMappings">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCandidateMapping_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="ClientCandidateMappings" Type="Self.ClientCandidateMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientCandidateMappings">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companies_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Companies" Type="Self.Companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Companies">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="Interviews" Type="Self.Interviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="Interviews">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_InterviewFeedback">
+          <End Role="Interviews" Type="Self.Interviews" Multiplicity="1" />
+          <End Role="InterviewFeedbacks" Type="Self.InterviewFeedbacks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interviews">
+              <PropertyRef Name="InterviewId" />
+            </Principal>
+            <Dependent Role="InterviewFeedbacks">
+              <PropertyRef Name="InterviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewEmotions_Interview">
+          <End Role="Interviews" Type="Self.Interviews" Multiplicity="0..1" />
+          <End Role="InterviewEmotions" Type="Self.InterviewEmotions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interviews">
+              <PropertyRef Name="InterviewId" />
+            </Principal>
+            <Dependent Role="InterviewEmotions">
+              <PropertyRef Name="InterviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewFeedback_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="InterviewFeedbacks" Type="Self.InterviewFeedbacks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InterviewFeedbacks">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewQuestionsTime_Interview">
+          <End Role="Interviews" Type="Self.Interviews" Multiplicity="0..1" />
+          <End Role="InterviewQuestionsTimes" Type="Self.InterviewQuestionsTimes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interviews">
+              <PropertyRef Name="InterviewId" />
+            </Principal>
+            <Dependent Role="InterviewQuestionsTimes">
+              <PropertyRef Name="InterviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewQuestionsTime_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="InterviewQuestionsTimes" Type="Self.InterviewQuestionsTimes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="InterviewQuestionsTimes">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCallerData_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="MCallerDatas" Type="Self.MCallerDatas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MCallerDatas">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCallerData_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+          <End Role="MCallerDatas" Type="Self.MCallerDatas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="MCallerDatas">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCallerData_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="MCallerDatas" Type="Self.MCallerDatas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="MCallerDatas">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="LastUpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswerImages_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="QuestionAnswerImages" Type="Self.QuestionAnswerImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionAnswerImages">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="QueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_QuestionGroup">
+          <End Role="QuestionGroup" Type="Self.QuestionGroup" Multiplicity="0..1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMapping_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="UserMapping" Type="Self.UserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="UserMapping">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMapping_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="UserMapping" Type="Self.UserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="UserMapping">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vRecruitModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccessPermission" EntityType="Self.AccessPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidate" EntityType="Self.Candidate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateExam" EntityType="Self.CandidateExam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidatesResumes" EntityType="Self.CandidatesResumes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateTestRecords" EntityType="Self.CandidateTestRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateTestResult" EntityType="Self.CandidateTestResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateTestURLs" EntityType="Self.CandidateTestURLs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateUploads" EntityType="Self.CandidateUploads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientCandidateMappings" EntityType="Self.ClientCandidateMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewEmotions" EntityType="Self.InterviewEmotions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewFeedbacks" EntityType="Self.InterviewFeedbacks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewQuestionsTimes" EntityType="Self.InterviewQuestionsTimes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Interviews" EntityType="Self.Interviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MCallerDatas" EntityType="Self.MCallerDatas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NextActions" EntityType="Self.NextActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionAnswerImages" EntityType="Self.QuestionAnswerImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionGroup" EntityType="Self.QuestionGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SendMesssages" EntityType="Self.SendMesssages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SkillMasters" EntityType="Self.SkillMasters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMapping" EntityType="Self.UserMapping" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__QuestionG__Compa__74AE54BC" Association="Self.FK__QuestionG__Compa__74AE54BC">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="QuestionGroup" EntitySet="QuestionGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessPermission_Entity" Association="Self.FK_AccessPermission_Entity">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AccessPermission" EntitySet="AccessPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessPermission_Entity1" Association="Self.FK_AccessPermission_Entity1">
+            <End Role="Entity" EntitySet="Entity" />
+            <End Role="AccessPermission" EntitySet="AccessPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Candidate" Association="Self.FK_Activity_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Companies" Association="Self.FK_Activity_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Job" Association="Self.FK_Activity_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Question" Association="Self.FK_Answer_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Client" Association="Self.FK_AspNetUsers_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_Customer" Association="Self.FK_Candidate_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateExam_Candidate" Association="Self.FK_CandidateExam_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="CandidateExam" EntitySet="CandidateExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateExam_Customer" Association="Self.FK_CandidateExam_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CandidateExam" EntitySet="CandidateExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateExam_Job" Association="Self.FK_CandidateExam_Job">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="CandidateExam" EntitySet="CandidateExam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidatesResume_Candidate" Association="Self.FK_CandidatesResume_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="CandidatesResumes" EntitySet="CandidatesResumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Companies" Association="Self.FK_Client_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Customer" Association="Self.FK_Client_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCandidateMapping_Candidate" Association="Self.FK_ClientCandidateMapping_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="ClientCandidateMappings" EntitySet="ClientCandidateMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCandidateMapping_Client" Association="Self.FK_ClientCandidateMapping_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientCandidateMappings" EntitySet="ClientCandidateMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companies_AspNetUsers" Association="Self.FK_Companies_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Customer" Association="Self.FK_Exam_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_Candidate" Association="Self.FK_Interview_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="Interviews" EntitySet="Interviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_InterviewFeedback" Association="Self.FK_Interview_InterviewFeedback">
+            <End Role="Interviews" EntitySet="Interviews" />
+            <End Role="InterviewFeedbacks" EntitySet="InterviewFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewEmotions_Interview" Association="Self.FK_InterviewEmotions_Interview">
+            <End Role="Interviews" EntitySet="Interviews" />
+            <End Role="InterviewEmotions" EntitySet="InterviewEmotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewFeedback_AspNetUsers" Association="Self.FK_InterviewFeedback_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="InterviewFeedbacks" EntitySet="InterviewFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewQuestionsTime_Interview" Association="Self.FK_InterviewQuestionsTime_Interview">
+            <End Role="Interviews" EntitySet="Interviews" />
+            <End Role="InterviewQuestionsTimes" EntitySet="InterviewQuestionsTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewQuestionsTime_Question" Association="Self.FK_InterviewQuestionsTime_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="InterviewQuestionsTimes" EntitySet="InterviewQuestionsTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Client" Association="Self.FK_Job_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCallerData_AspNetUsers" Association="Self.FK_MCallerData_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MCallerDatas" EntitySet="MCallerDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCallerData_Candidate" Association="Self.FK_MCallerData_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="MCallerDatas" EntitySet="MCallerDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCallerData_Client" Association="Self.FK_MCallerData_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="MCallerDatas" EntitySet="MCallerDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Companies" Association="Self.FK_Question_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Customer" Association="Self.FK_Question_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_User" Association="Self.FK_Question_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswerImages_Question" Association="Self.FK_QuestionAnswerImages_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionAnswerImages" EntitySet="QuestionAnswerImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="Self.FK_State_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Question" Association="Self.FK_Test_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_QuestionGroup" Association="Self.FK_Test_QuestionGroup">
+            <End Role="QuestionGroup" EntitySet="QuestionGroup" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMapping_Client" Association="Self.FK_UserMapping_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="UserMapping" EntitySet="UserMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMapping_Customer" Association="Self.FK_UserMapping_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="UserMapping" EntitySet="UserMapping" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vRecruitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="vRecruitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="vRecruitModel.C__MigrationHistory" />
+          <EntitySet Name="AccessPermissions" EntityType="vRecruitModel.AccessPermission" />
+          <EntitySet Name="Activities" EntityType="vRecruitModel.Activity" />
+          <EntitySet Name="ActivityTypes" EntityType="vRecruitModel.ActivityType" />
+          <EntitySet Name="Answers" EntityType="vRecruitModel.Answer" />
+          <EntitySet Name="AspNetRoles" EntityType="vRecruitModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="vRecruitModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="vRecruitModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="vRecruitModel.AspNetUser" />
+          <EntitySet Name="Candidates" EntityType="vRecruitModel.Candidate" />
+          <EntitySet Name="CandidateExams" EntityType="vRecruitModel.CandidateExam" />
+          <EntitySet Name="CandidatesResumes" EntityType="vRecruitModel.CandidatesResume" />
+          <EntitySet Name="CandidateTestRecords" EntityType="vRecruitModel.CandidateTestRecord" />
+          <EntitySet Name="CandidateTestResults" EntityType="vRecruitModel.CandidateTestResult" />
+          <EntitySet Name="CandidateTestURLs" EntityType="vRecruitModel.CandidateTestURL" />
+          <EntitySet Name="CandidateUploads" EntityType="vRecruitModel.CandidateUpload" />
+          <EntitySet Name="Cities" EntityType="vRecruitModel.City" />
+          <EntitySet Name="Clients" EntityType="vRecruitModel.Client" />
+          <EntitySet Name="ClientCandidateMappings" EntityType="vRecruitModel.ClientCandidateMapping" />
+          <EntitySet Name="Companies" EntityType="vRecruitModel.Company" />
+          <EntitySet Name="Contacts" EntityType="vRecruitModel.Contact" />
+          <EntitySet Name="Countries" EntityType="vRecruitModel.Country" />
+          <EntitySet Name="Customers" EntityType="vRecruitModel.Customer" />
+          <EntitySet Name="Entities" EntityType="vRecruitModel.Entity" />
+          <EntitySet Name="Exams" EntityType="vRecruitModel.Exam" />
+          <EntitySet Name="Feedbacks" EntityType="vRecruitModel.Feedback" />
+          <EntitySet Name="InterviewEmotions" EntityType="vRecruitModel.InterviewEmotion" />
+          <EntitySet Name="InterviewFeedbacks" EntityType="vRecruitModel.InterviewFeedback" />
+          <EntitySet Name="InterviewQuestionsTimes" EntityType="vRecruitModel.InterviewQuestionsTime" />
+          <EntitySet Name="Interviews" EntityType="vRecruitModel.Interview" />
+          <EntitySet Name="Jobs" EntityType="vRecruitModel.Job" />
+          <EntitySet Name="MCallerDatas" EntityType="vRecruitModel.MCallerData" />
+          <EntitySet Name="NextActions" EntityType="vRecruitModel.NextAction" />
+          <EntitySet Name="Questions" EntityType="vRecruitModel.Question" />
+          <EntitySet Name="QuestionAnswerImages" EntityType="vRecruitModel.QuestionAnswerImage" />
+          <EntitySet Name="QuestionGroups" EntityType="vRecruitModel.QuestionGroup" />
+          <EntitySet Name="SendMesssages" EntityType="vRecruitModel.SendMesssage" />
+          <EntitySet Name="SkillMasters" EntityType="vRecruitModel.SkillMaster" />
+          <EntitySet Name="Skills" EntityType="vRecruitModel.Skill" />
+          <EntitySet Name="States" EntityType="vRecruitModel.State" />
+          <EntitySet Name="sysdiagrams" EntityType="vRecruitModel.sysdiagram" />
+          <EntitySet Name="Tests" EntityType="vRecruitModel.Test" />
+          <EntitySet Name="UserMappings" EntityType="vRecruitModel.UserMapping" />
+          <AssociationSet Name="FK_AccessPermission_Entity" Association="vRecruitModel.FK_AccessPermission_Entity">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AccessPermission" EntitySet="AccessPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessPermission_Entity1" Association="vRecruitModel.FK_AccessPermission_Entity1">
+            <End Role="Entity" EntitySet="Entities" />
+            <End Role="AccessPermission" EntitySet="AccessPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Candidate" Association="vRecruitModel.FK_Activity_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Companies" Association="vRecruitModel.FK_Activity_Companies">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Job" Association="vRecruitModel.FK_Activity_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Question" Association="vRecruitModel.FK_Answer_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="vRecruitModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="vRecruitModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Client" Association="vRecruitModel.FK_AspNetUsers_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companies_AspNetUsers" Association="vRecruitModel.FK_Companies_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewFeedback_AspNetUsers" Association="vRecruitModel.FK_InterviewFeedback_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="InterviewFeedback" EntitySet="InterviewFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_User" Association="vRecruitModel.FK_Question_User">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_Customer" Association="vRecruitModel.FK_Candidate_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateExam_Candidate" Association="vRecruitModel.FK_CandidateExam_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="CandidateExam" EntitySet="CandidateExams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidatesResume_Candidate" Association="vRecruitModel.FK_CandidatesResume_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="CandidatesResume" EntitySet="CandidatesResumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_Candidate" Association="vRecruitModel.FK_Interview_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Interview" EntitySet="Interviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateExam_Customer" Association="vRecruitModel.FK_CandidateExam_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CandidateExam" EntitySet="CandidateExams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateExam_Job" Association="vRecruitModel.FK_CandidateExam_Job">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="CandidateExam" EntitySet="CandidateExams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="vRecruitModel.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Companies" Association="vRecruitModel.FK_Client_Companies">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Customer" Association="vRecruitModel.FK_Client_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCandidateMapping_Client" Association="vRecruitModel.FK_ClientCandidateMapping_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientCandidateMapping" EntitySet="ClientCandidateMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Client" Association="vRecruitModel.FK_Job_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCallerData_Client" Association="vRecruitModel.FK_MCallerData_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="MCallerData" EntitySet="MCallerDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMapping_Client" Association="vRecruitModel.FK_UserMapping_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="UserMapping" EntitySet="UserMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionG__Compa__74AE54BC" Association="vRecruitModel.FK__QuestionG__Compa__74AE54BC">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="QuestionGroup" EntitySet="QuestionGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Companies" Association="vRecruitModel.FK_Question_Companies">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="vRecruitModel.FK_State_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Customer" Association="vRecruitModel.FK_Exam_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Customer" Association="vRecruitModel.FK_Question_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMapping_Customer" Association="vRecruitModel.FK_UserMapping_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="UserMapping" EntitySet="UserMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewEmotions_Interview" Association="vRecruitModel.FK_InterviewEmotions_Interview">
+            <End Role="Interview" EntitySet="Interviews" />
+            <End Role="InterviewEmotion" EntitySet="InterviewEmotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interview_InterviewFeedback" Association="vRecruitModel.FK_Interview_InterviewFeedback">
+            <End Role="Interview" EntitySet="Interviews" />
+            <End Role="InterviewFeedback" EntitySet="InterviewFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewQuestionsTime_Interview" Association="vRecruitModel.FK_InterviewQuestionsTime_Interview">
+            <End Role="Interview" EntitySet="Interviews" />
+            <End Role="InterviewQuestionsTime" EntitySet="InterviewQuestionsTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InterviewQuestionsTime_Question" Association="vRecruitModel.FK_InterviewQuestionsTime_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="InterviewQuestionsTime" EntitySet="InterviewQuestionsTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswerImages_Question" Association="vRecruitModel.FK_QuestionAnswerImages_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionAnswerImage" EntitySet="QuestionAnswerImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Question" Association="vRecruitModel.FK_Test_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_QuestionGroup" Association="vRecruitModel.FK_Test_QuestionGroup">
+            <End Role="QuestionGroup" EntitySet="QuestionGroups" />
+            <End Role="Test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="vRecruitModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCallerData_AspNetUsers" Association="vRecruitModel.FK_MCallerData_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="MCallerData" EntitySet="MCallerDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCandidateMapping_Candidate" Association="vRecruitModel.FK_ClientCandidateMapping_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="ClientCandidateMapping" EntitySet="ClientCandidateMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MCallerData_Candidate" Association="vRecruitModel.FK_MCallerData_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="MCallerData" EntitySet="MCallerDatas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AccessPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EntityId" Type="Int32" />
+          <Property Name="IsAdd" Type="Boolean" />
+          <Property Name="IsView" Type="Boolean" />
+          <Property Name="IsEdit" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsPrint" Type="Boolean" />
+          <Property Name="IsExport" Type="Boolean" />
+          <NavigationProperty Name="AspNetRole" Relationship="vRecruitModel.FK_AccessPermission_Entity" FromRole="AccessPermission" ToRole="AspNetRole" />
+          <NavigationProperty Name="Entity" Relationship="vRecruitModel.FK_AccessPermission_Entity1" FromRole="AccessPermission" ToRole="Entity" />
+        </EntityType>
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Activity1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDate" Type="DateTime" Precision="3" />
+          <Property Name="ActivityRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityComplete" Type="Boolean" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="JobId" Type="Int32" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Companyid" Type="Int32" />
+          <NavigationProperty Name="Candidate" Relationship="vRecruitModel.FK_Activity_Candidate" FromRole="Activity" ToRole="Candidate" />
+          <NavigationProperty Name="Company" Relationship="vRecruitModel.FK_Activity_Companies" FromRole="Activity" ToRole="Company" />
+          <NavigationProperty Name="Job" Relationship="vRecruitModel.FK_Activity_Job" FromRole="Activity" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="ActivityType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityType1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestiondId" Type="Int32" />
+          <Property Name="Answer1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerCorrect" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="vRecruitModel.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccessPermissions" Relationship="vRecruitModel.FK_AccessPermission_Entity" FromRole="AspNetRole" ToRole="AccessPermission" />
+          <NavigationProperty Name="AspNetUsers" Relationship="vRecruitModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="vRecruitModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="vRecruitModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="vRecruitModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="vRecruitModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Client" Relationship="vRecruitModel.FK_AspNetUsers_Client" FromRole="AspNetUser" ToRole="Client" />
+          <NavigationProperty Name="Companies" Relationship="vRecruitModel.FK_Companies_AspNetUsers" FromRole="AspNetUser" ToRole="Company" />
+          <NavigationProperty Name="InterviewFeedbacks" Relationship="vRecruitModel.FK_InterviewFeedback_AspNetUsers" FromRole="AspNetUser" ToRole="InterviewFeedback" />
+          <NavigationProperty Name="Questions" Relationship="vRecruitModel.FK_Question_User" FromRole="AspNetUser" ToRole="Question" />
+          <NavigationProperty Name="AspNetRoles" Relationship="vRecruitModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="MCallerDatas" Relationship="vRecruitModel.FK_MCallerData_AspNetUsers" FromRole="AspNetUser" ToRole="MCallerData" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateDOB" Type="DateTime" Precision="0" />
+          <Property Name="CandidateSkill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateExperience" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateResume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="LastUpdateBy" Type="Guid" />
+          <Property Name="CandidatePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CandidatePhone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateLastJobChange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SkypeId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentCTC" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExpectedCTC" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BuyoutOption" Type="Boolean" />
+          <Property Name="Education" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OffersInHand" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NoticePeriod" Type="Int32" />
+          <Property Name="ClientDesignation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="Relevant_Exp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Preferred_Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Job_change_reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CurrentOrganisation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="CandidateVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreviousDesignation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Activities" Relationship="vRecruitModel.FK_Activity_Candidate" FromRole="Candidate" ToRole="Activity" />
+          <NavigationProperty Name="Customer" Relationship="vRecruitModel.FK_Candidate_Customer" FromRole="Candidate" ToRole="Customer" />
+          <NavigationProperty Name="CandidateExams" Relationship="vRecruitModel.FK_CandidateExam_Candidate" FromRole="Candidate" ToRole="CandidateExam" />
+          <NavigationProperty Name="CandidatesResumes" Relationship="vRecruitModel.FK_CandidatesResume_Candidate" FromRole="Candidate" ToRole="CandidatesResume" />
+          <NavigationProperty Name="Interviews" Relationship="vRecruitModel.FK_Interview_Candidate" FromRole="Candidate" ToRole="Interview" />
+          <NavigationProperty Name="ClientCandidateMappings" Relationship="vRecruitModel.FK_ClientCandidateMapping_Candidate" FromRole="Candidate" ToRole="ClientCandidateMapping" />
+          <NavigationProperty Name="MCallerDatas" Relationship="vRecruitModel.FK_MCallerData_Candidate" FromRole="Candidate" ToRole="MCallerData" />
+        </EntityType>
+        <EntityType Name="CandidateExam">
+          <Key>
+            <PropertyRef Name="CandidateExamId" />
+          </Key>
+          <Property Name="CandidateExamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamDate" Type="DateTime" Precision="3" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="JobId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ExamAnswers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateExamLinkId" Type="Guid" />
+          <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="Candidate" Relationship="vRecruitModel.FK_CandidateExam_Candidate" FromRole="CandidateExam" ToRole="Candidate" />
+          <NavigationProperty Name="Customer" Relationship="vRecruitModel.FK_CandidateExam_Customer" FromRole="CandidateExam" ToRole="Customer" />
+          <NavigationProperty Name="Job" Relationship="vRecruitModel.FK_CandidateExam_Job" FromRole="CandidateExam" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="CandidatesResume">
+          <Key>
+            <PropertyRef Name="Candidate_resume_Id" />
+          </Key>
+          <Property Name="Candidate_resume_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="CandidateResume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Candidate" Relationship="vRecruitModel.FK_CandidatesResume_Candidate" FromRole="CandidatesResume" ToRole="Candidate" />
+          <Property Name="CreatedDateString" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CandidateTestRecord">
+          <Key>
+            <PropertyRef Name="CandidateScoreId" />
+          </Key>
+          <Property Name="CandidateScoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="TestName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TestLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TestStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TestScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CandidateTestResult">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="CandidateAnswerId" Type="Int32" />
+          <Property Name="IsMulti" Type="Boolean" />
+          <Property Name="TestName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TestGroupId" Type="Int32" />
+          <Property Name="TestLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="AssignBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubmitDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="CandidateTestURL">
+          <Key>
+            <PropertyRef Name="CandTestURLId" />
+          </Key>
+          <Property Name="CandTestURLId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandId" Type="Int32" Nullable="false" />
+          <Property Name="TestURLID" Type="Guid" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateUpload">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Project" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Achievement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" />
+          <NavigationProperty Name="State" Relationship="vRecruitModel.FK_City_State" FromRole="City" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientWWW" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClientGST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientStatus" Type="Boolean" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="LastUpdateBy" Type="Guid" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="Contact_Person" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Client_PAN_No" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ClientCity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClientCountryId" Type="Int32" />
+          <NavigationProperty Name="AspNetUsers" Relationship="vRecruitModel.FK_AspNetUsers_Client" FromRole="Client" ToRole="AspNetUser" />
+          <NavigationProperty Name="Company" Relationship="vRecruitModel.FK_Client_Companies" FromRole="Client" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="vRecruitModel.FK_Client_Customer" FromRole="Client" ToRole="Customer" />
+          <NavigationProperty Name="ClientCandidateMappings" Relationship="vRecruitModel.FK_ClientCandidateMapping_Client" FromRole="Client" ToRole="ClientCandidateMapping" />
+          <NavigationProperty Name="Jobs" Relationship="vRecruitModel.FK_Job_Client" FromRole="Client" ToRole="Job" />
+          <NavigationProperty Name="MCallerDatas" Relationship="vRecruitModel.FK_MCallerData_Client" FromRole="Client" ToRole="MCallerData" />
+          <NavigationProperty Name="UserMappings" Relationship="vRecruitModel.FK_UserMapping_Client" FromRole="Client" ToRole="UserMapping" />
+        </EntityType>
+        <EntityType Name="ClientCandidateMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="CandidateId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="vRecruitModel.FK_ClientCandidateMapping_Client" FromRole="ClientCandidateMapping" ToRole="Client" />
+          <NavigationProperty Name="Candidate" Relationship="vRecruitModel.FK_ClientCandidateMapping_Candidate" FromRole="ClientCandidateMapping" ToRole="Candidate" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pincode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="LastUpdateBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Activities" Relationship="vRecruitModel.FK_Activity_Companies" FromRole="Company" ToRole="Activity" />
+          <NavigationProperty Name="AspNetUser" Relationship="vRecruitModel.FK_Companies_AspNetUsers" FromRole="Company" ToRole="AspNetUser" />
+          <NavigationProperty Name="Clients" Relationship="vRecruitModel.FK_Client_Companies" FromRole="Company" ToRole="Client" />
+          <NavigationProperty Name="QuestionGroups" Relationship="vRecruitModel.FK__QuestionG__Compa__74AE54BC" FromRole="Company" ToRole="QuestionGroup" />
+          <NavigationProperty Name="Questions" Relationship="vRecruitModel.FK_Question_Companies" FromRole="Company" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="States" Relationship="vRecruitModel.FK_State_Country" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerGST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerWWW" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidates" Relationship="vRecruitModel.FK_Candidate_Customer" FromRole="Customer" ToRole="Candidate" />
+          <NavigationProperty Name="CandidateExams" Relationship="vRecruitModel.FK_CandidateExam_Customer" FromRole="Customer" ToRole="CandidateExam" />
+          <NavigationProperty Name="Clients" Relationship="vRecruitModel.FK_Client_Customer" FromRole="Customer" ToRole="Client" />
+          <NavigationProperty Name="Exams" Relationship="vRecruitModel.FK_Exam_Customer" FromRole="Customer" ToRole="Exam" />
+          <NavigationProperty Name="Questions" Relationship="vRecruitModel.FK_Question_Customer" FromRole="Customer" ToRole="Question" />
+          <NavigationProperty Name="UserMappings" Relationship="vRecruitModel.FK_UserMapping_Customer" FromRole="Customer" ToRole="UserMapping" />
+        </EntityType>
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccessPermissions" Relationship="vRecruitModel.FK_AccessPermission_Entity1" FromRole="Entity" ToRole="AccessPermission" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExamStatus" Type="Boolean" />
+          <Property Name="ExamSkill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExamQuestions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="LastUpdateBy" Type="Guid" />
+          <NavigationProperty Name="Customer" Relationship="vRecruitModel.FK_Exam_Customer" FromRole="Exam" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackId" />
+          </Key>
+          <Property Name="FeedbackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="FeedbackRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InterviewEmotion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InterviewId" Type="Int32" />
+          <Property Name="EmotionTime" Type="Double" />
+          <Property Name="EmotionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmotionScore" Type="Double" />
+          <NavigationProperty Name="Interview" Relationship="vRecruitModel.FK_InterviewEmotions_Interview" FromRole="InterviewEmotion" ToRole="Interview" />
+        </EntityType>
+        <EntityType Name="InterviewFeedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InterviewId" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CommentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="vRecruitModel.FK_InterviewFeedback_AspNetUsers" FromRole="InterviewFeedback" ToRole="AspNetUser" />
+          <NavigationProperty Name="Interview" Relationship="vRecruitModel.FK_Interview_InterviewFeedback" FromRole="InterviewFeedback" ToRole="Interview" />
+        </EntityType>
+        <EntityType Name="InterviewQuestionsTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InterviewId" Type="Int32" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="QuestionTime" Type="Double" />
+          <Property Name="IsAnswerCorrect" Type="Boolean" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Interview" Relationship="vRecruitModel.FK_InterviewQuestionsTime_Interview" FromRole="InterviewQuestionsTime" ToRole="Interview" />
+          <NavigationProperty Name="Question" Relationship="vRecruitModel.FK_InterviewQuestionsTime_Question" FromRole="InterviewQuestionsTime" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Interview">
+          <Key>
+            <PropertyRef Name="InterviewId" />
+          </Key>
+          <Property Name="InterviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="TestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InterviewVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InterviewDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Candidate" Relationship="vRecruitModel.FK_Interview_Candidate" FromRole="Interview" ToRole="Candidate" />
+          <NavigationProperty Name="InterviewEmotions" Relationship="vRecruitModel.FK_InterviewEmotions_Interview" FromRole="Interview" ToRole="InterviewEmotion" />
+          <NavigationProperty Name="InterviewFeedbacks" Relationship="vRecruitModel.FK_Interview_InterviewFeedback" FromRole="Interview" ToRole="InterviewFeedback" />
+          <NavigationProperty Name="InterviewQuestionsTimes" Relationship="vRecruitModel.FK_InterviewQuestionsTime_Interview" FromRole="Interview" ToRole="InterviewQuestionsTime" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobStatus" Type="Boolean" />
+          <Property Name="JobCount" Type="Int32" />
+          <Property Name="JobTargetDate" Type="DateTime" Precision="7" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="LastUpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="Years_of_Exp" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Person" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Activities" Relationship="vRecruitModel.FK_Activity_Job" FromRole="Job" ToRole="Activity" />
+          <NavigationProperty Name="CandidateExams" Relationship="vRecruitModel.FK_CandidateExam_Job" FromRole="Job" ToRole="CandidateExam" />
+          <NavigationProperty Name="Client" Relationship="vRecruitModel.FK_Job_Client" FromRole="Job" ToRole="Client" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MCallerData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallDuration" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="CallType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="NextAction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SendSMSMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="vRecruitModel.FK_MCallerData_Client" FromRole="MCallerData" ToRole="Client" />
+          <NavigationProperty Name="AspNetUser" Relationship="vRecruitModel.FK_MCallerData_AspNetUsers" FromRole="MCallerData" ToRole="AspNetUser" />
+          <NavigationProperty Name="Candidate" Relationship="vRecruitModel.FK_MCallerData_Candidate" FromRole="MCallerData" ToRole="Candidate" />
+        </EntityType>
+        <EntityType Name="NextAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionStatus" Type="Boolean" />
+          <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionSkill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="QuestionGroupId" Type="Int32" />
+          <Property Name="LastUpdateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Answers" Relationship="vRecruitModel.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
+          <NavigationProperty Name="AspNetUser" Relationship="vRecruitModel.FK_Question_User" FromRole="Question" ToRole="AspNetUser" />
+          <NavigationProperty Name="Company" Relationship="vRecruitModel.FK_Question_Companies" FromRole="Question" ToRole="Company" />
+          <NavigationProperty Name="Customer" Relationship="vRecruitModel.FK_Question_Customer" FromRole="Question" ToRole="Customer" />
+          <NavigationProperty Name="InterviewQuestionsTimes" Relationship="vRecruitModel.FK_InterviewQuestionsTime_Question" FromRole="Question" ToRole="InterviewQuestionsTime" />
+          <NavigationProperty Name="QuestionAnswerImages" Relationship="vRecruitModel.FK_QuestionAnswerImages_Question" FromRole="Question" ToRole="QuestionAnswerImage" />
+          <NavigationProperty Name="Tests" Relationship="vRecruitModel.FK_Test_Question" FromRole="Question" ToRole="Test" />
+        </EntityType>
+        <EntityType Name="QuestionAnswerImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="Images" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Question" Relationship="vRecruitModel.FK_QuestionAnswerImages_Question" FromRole="QuestionAnswerImage" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="QuestionGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="LastUpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Company" Relationship="vRecruitModel.FK__QuestionG__Compa__74AE54BC" FromRole="QuestionGroup" ToRole="Company" />
+          <NavigationProperty Name="Tests" Relationship="vRecruitModel.FK_Test_QuestionGroup" FromRole="QuestionGroup" ToRole="Test" />
+        </EntityType>
+        <EntityType Name="SendMesssage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SkillMaster">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Skills" />
+          </Key>
+          <Property Name="Skills" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" />
+          <NavigationProperty Name="Cities" Relationship="vRecruitModel.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="vRecruitModel.FK_State_Country" FromRole="State" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="QueId" Type="Int32" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="Testtime" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="vRecruitModel.FK_Test_Question" FromRole="Test" ToRole="Question" />
+          <NavigationProperty Name="QuestionGroup" Relationship="vRecruitModel.FK_Test_QuestionGroup" FromRole="Test" ToRole="QuestionGroup" />
+        </EntityType>
+        <EntityType Name="UserMapping">
+          <Key>
+            <PropertyRef Name="UserMappingId" />
+          </Key>
+          <Property Name="UserMappingId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="vRecruitModel.FK_UserMapping_Client" FromRole="UserMapping" ToRole="Client" />
+          <NavigationProperty Name="Customer" Relationship="vRecruitModel.FK_UserMapping_Customer" FromRole="UserMapping" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_AccessPermission_Entity">
+          <End Type="vRecruitModel.AspNetRole" Role="AspNetRole" Multiplicity="0..1" />
+          <End Type="vRecruitModel.AccessPermission" Role="AccessPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccessPermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessPermission_Entity1">
+          <End Type="vRecruitModel.Entity" Role="Entity" Multiplicity="0..1" />
+          <End Type="vRecruitModel.AccessPermission" Role="AccessPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccessPermission">
+              <PropertyRef Name="EntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Candidate">
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Companies">
+          <End Type="vRecruitModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="Companyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Job">
+          <End Type="vRecruitModel.Job" Role="Job" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Question">
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="QuestiondId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="vRecruitModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="vRecruitModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Client">
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companies_AspNetUsers">
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewFeedback_AspNetUsers">
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="vRecruitModel.InterviewFeedback" Role="InterviewFeedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InterviewFeedback">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_User">
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="LastUpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_Customer">
+          <End Type="vRecruitModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateExam_Candidate">
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="0..1" />
+          <End Type="vRecruitModel.CandidateExam" Role="CandidateExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateExam">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidatesResume_Candidate">
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="0..1" />
+          <End Type="vRecruitModel.CandidatesResume" Role="CandidatesResume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidatesResume">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_Candidate">
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Interview" Role="Interview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="Interview">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateExam_Customer">
+          <End Type="vRecruitModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="vRecruitModel.CandidateExam" Role="CandidateExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CandidateExam">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateExam_Job">
+          <End Type="vRecruitModel.Job" Role="Job" Multiplicity="0..1" />
+          <End Type="vRecruitModel.CandidateExam" Role="CandidateExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="CandidateExam">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Type="vRecruitModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="vRecruitModel.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Companies">
+          <End Type="vRecruitModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Customer">
+          <End Type="vRecruitModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCandidateMapping_Client">
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="vRecruitModel.ClientCandidateMapping" Role="ClientCandidateMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientCandidateMapping">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Client">
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCallerData_Client">
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="vRecruitModel.MCallerData" Role="MCallerData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="MCallerData">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMapping_Client">
+          <End Type="vRecruitModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="vRecruitModel.UserMapping" Role="UserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="UserMapping">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionG__Compa__74AE54BC">
+          <End Type="vRecruitModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="vRecruitModel.QuestionGroup" Role="QuestionGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QuestionGroup">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Companies">
+          <End Type="vRecruitModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Type="vRecruitModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="vRecruitModel.State" Role="State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Customer">
+          <End Type="vRecruitModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Exam" Role="Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Customer">
+          <End Type="vRecruitModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMapping_Customer">
+          <End Type="vRecruitModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="vRecruitModel.UserMapping" Role="UserMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="UserMapping">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewEmotions_Interview">
+          <End Type="vRecruitModel.Interview" Role="Interview" Multiplicity="0..1" />
+          <End Type="vRecruitModel.InterviewEmotion" Role="InterviewEmotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interview">
+              <PropertyRef Name="InterviewId" />
+            </Principal>
+            <Dependent Role="InterviewEmotion">
+              <PropertyRef Name="InterviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interview_InterviewFeedback">
+          <End Type="vRecruitModel.Interview" Role="Interview" Multiplicity="1" />
+          <End Type="vRecruitModel.InterviewFeedback" Role="InterviewFeedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interview">
+              <PropertyRef Name="InterviewId" />
+            </Principal>
+            <Dependent Role="InterviewFeedback">
+              <PropertyRef Name="InterviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewQuestionsTime_Interview">
+          <End Type="vRecruitModel.Interview" Role="Interview" Multiplicity="0..1" />
+          <End Type="vRecruitModel.InterviewQuestionsTime" Role="InterviewQuestionsTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Interview">
+              <PropertyRef Name="InterviewId" />
+            </Principal>
+            <Dependent Role="InterviewQuestionsTime">
+              <PropertyRef Name="InterviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InterviewQuestionsTime_Question">
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="vRecruitModel.InterviewQuestionsTime" Role="InterviewQuestionsTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="InterviewQuestionsTime">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswerImages_Question">
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="vRecruitModel.QuestionAnswerImage" Role="QuestionAnswerImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionAnswerImage">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Question">
+          <End Type="vRecruitModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Test" Role="Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="QueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_QuestionGroup">
+          <End Type="vRecruitModel.QuestionGroup" Role="QuestionGroup" Multiplicity="0..1" />
+          <End Type="vRecruitModel.Test" Role="Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="vRecruitModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_MCallerData_AspNetUsers">
+          <End Type="vRecruitModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="vRecruitModel.MCallerData" Role="MCallerData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MCallerData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCandidateMapping_Candidate">
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="0..1" />
+          <End Type="vRecruitModel.ClientCandidateMapping" Role="ClientCandidateMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="ClientCandidateMapping">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MCallerData_Candidate">
+          <End Type="vRecruitModel.Candidate" Role="Candidate" Multiplicity="0..1" />
+          <End Type="vRecruitModel.MCallerData" Role="MCallerData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="MCallerData">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vRecruitModelStoreContainer" CdmEntityContainer="vRecruitEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="vRecruitModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccessPermissions">
+            <EntityTypeMapping TypeName="vRecruitModel.AccessPermission">
+              <MappingFragment StoreEntitySet="AccessPermission">
+                <ScalarProperty Name="IsExport" ColumnName="IsExport" />
+                <ScalarProperty Name="IsPrint" ColumnName="IsPrint" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsEdit" ColumnName="IsEdit" />
+                <ScalarProperty Name="IsView" ColumnName="IsView" />
+                <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="vRecruitModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Companyid" ColumnName="Companyid" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="ActivityComplete" ColumnName="ActivityComplete" />
+                <ScalarProperty Name="ActivityRemark" ColumnName="ActivityRemark" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Activity1" ColumnName="Activity" />
+                <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityTypes">
+            <EntityTypeMapping TypeName="vRecruitModel.ActivityType">
+              <MappingFragment StoreEntitySet="ActivityType">
+                <ScalarProperty Name="ActivityType1" ColumnName="ActivityType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="vRecruitModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="AnswerCorrect" ColumnName="AnswerCorrect" />
+                <ScalarProperty Name="Answer1" ColumnName="Answer" />
+                <ScalarProperty Name="QuestiondId" ColumnName="QuestiondId" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="vRecruitModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="vRecruitModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="vRecruitModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="vRecruitModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidates">
+            <EntityTypeMapping TypeName="vRecruitModel.Candidate">
+              <MappingFragment StoreEntitySet="Candidate">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="PreviousDesignation" ColumnName="PreviousDesignation" />
+                <ScalarProperty Name="CandidateVideo" ColumnName="CandidateVideo" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CurrentOrganisation" ColumnName="CurrentOrganisation" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Last_Job_change_reason" ColumnName="Last_Job_change_reason" />
+                <ScalarProperty Name="Preferred_Location" ColumnName="Preferred_Location" />
+                <ScalarProperty Name="Relevant_Exp" ColumnName="Relevant_Exp" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ClientDesignation" ColumnName="ClientDesignation" />
+                <ScalarProperty Name="NoticePeriod" ColumnName="NoticePeriod" />
+                <ScalarProperty Name="OffersInHand" ColumnName="OffersInHand" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="BuyoutOption" ColumnName="BuyoutOption" />
+                <ScalarProperty Name="ExpectedCTC" ColumnName="ExpectedCTC" />
+                <ScalarProperty Name="CurrentCTC" ColumnName="CurrentCTC" />
+                <ScalarProperty Name="SkypeId" ColumnName="SkypeId" />
+                <ScalarProperty Name="CandidateLastJobChange" ColumnName="CandidateLastJobChange" />
+                <ScalarProperty Name="CandidateLocation" ColumnName="CandidateLocation" />
+                <ScalarProperty Name="CandidatePhone2" ColumnName="CandidatePhone2" />
+                <ScalarProperty Name="CandidateEmail" ColumnName="CandidateEmail" />
+                <ScalarProperty Name="CandidatePhone" ColumnName="CandidatePhone" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CandidateResume" ColumnName="CandidateResume" />
+                <ScalarProperty Name="CandidateExperience" ColumnName="CandidateExperience" />
+                <ScalarProperty Name="CandidateSkill" ColumnName="CandidateSkill" />
+                <ScalarProperty Name="CandidateDOB" ColumnName="CandidateDOB" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateExams">
+            <EntityTypeMapping TypeName="vRecruitModel.CandidateExam">
+              <MappingFragment StoreEntitySet="CandidateExam">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CandidateExamLinkId" ColumnName="CandidateExamLinkId" />
+                <ScalarProperty Name="ExamAnswers" ColumnName="ExamAnswers" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="CandidateExamId" ColumnName="CandidateExamId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidatesResumes">
+            <EntityTypeMapping TypeName="vRecruitModel.CandidatesResume">
+              <MappingFragment StoreEntitySet="CandidatesResumes">
+                <ScalarProperty Name="CreatedDateString" ColumnName="CreatedDateString" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CandidateResume" ColumnName="CandidateResume" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="Candidate_resume_Id" ColumnName="Candidate_resume_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateTestRecords">
+            <EntityTypeMapping TypeName="vRecruitModel.CandidateTestRecord">
+              <MappingFragment StoreEntitySet="CandidateTestRecords">
+                <ScalarProperty Name="TestScore" ColumnName="TestScore" />
+                <ScalarProperty Name="TestStatus" ColumnName="TestStatus" />
+                <ScalarProperty Name="TestLink" ColumnName="TestLink" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="CandidateScoreId" ColumnName="CandidateScoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateTestResults">
+            <EntityTypeMapping TypeName="vRecruitModel.CandidateTestResult">
+              <MappingFragment StoreEntitySet="CandidateTestResult">
+                <ScalarProperty Name="SubmitDate" ColumnName="SubmitDate" />
+                <ScalarProperty Name="AssignBy" ColumnName="AssignBy" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="TestLink" ColumnName="TestLink" />
+                <ScalarProperty Name="TestGroupId" ColumnName="TestGroupId" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="IsMulti" ColumnName="IsMulti" />
+                <ScalarProperty Name="CandidateAnswerId" ColumnName="CandidateAnswerId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateTestURLs">
+            <EntityTypeMapping TypeName="vRecruitModel.CandidateTestURL">
+              <MappingFragment StoreEntitySet="CandidateTestURLs">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TestURLID" ColumnName="TestURLID" />
+                <ScalarProperty Name="CandId" ColumnName="CandId" />
+                <ScalarProperty Name="CandTestURLId" ColumnName="CandTestURLId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateUploads">
+            <EntityTypeMapping TypeName="vRecruitModel.CandidateUpload">
+              <MappingFragment StoreEntitySet="CandidateUploads">
+                <ScalarProperty Name="Achievement" ColumnName="Achievement" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="vRecruitModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="City1" ColumnName="City" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="vRecruitModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientCountryId" ColumnName="ClientCountryId" />
+                <ScalarProperty Name="ClientCity" ColumnName="ClientCity" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Client_PAN_No" ColumnName="Client_PAN_No" />
+                <ScalarProperty Name="Contact_Person" ColumnName="Contact_Person" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ClientStatus" ColumnName="ClientStatus" />
+                <ScalarProperty Name="ClientMobile" ColumnName="ClientMobile" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+                <ScalarProperty Name="ClientGST" ColumnName="ClientGST" />
+                <ScalarProperty Name="ClientWWW" ColumnName="ClientWWW" />
+                <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientCandidateMappings">
+            <EntityTypeMapping TypeName="vRecruitModel.ClientCandidateMapping">
+              <MappingFragment StoreEntitySet="ClientCandidateMappings">
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="vRecruitModel.Company">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CompanyEmail" ColumnName="CompanyEmail" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="vRecruitModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ContactPosition" ColumnName="ContactPosition" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="vRecruitModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Country1" ColumnName="Country" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="vRecruitModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerRemarks" ColumnName="CustomerRemarks" />
+                <ScalarProperty Name="CustomerWWW" ColumnName="CustomerWWW" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="CustomerGST" ColumnName="CustomerGST" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entities">
+            <EntityTypeMapping TypeName="vRecruitModel.Entity">
+              <MappingFragment StoreEntitySet="Entity">
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="vRecruitModel.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ExamQuestions" ColumnName="ExamQuestions" />
+                <ScalarProperty Name="ExamSkill" ColumnName="ExamSkill" />
+                <ScalarProperty Name="ExamStatus" ColumnName="ExamStatus" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="vRecruitModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="FeedbackRemarks" ColumnName="FeedbackRemarks" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="FeedbackId" ColumnName="FeedbackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewEmotions">
+            <EntityTypeMapping TypeName="vRecruitModel.InterviewEmotion">
+              <MappingFragment StoreEntitySet="InterviewEmotions">
+                <ScalarProperty Name="EmotionScore" ColumnName="EmotionScore" />
+                <ScalarProperty Name="EmotionName" ColumnName="EmotionName" />
+                <ScalarProperty Name="EmotionTime" ColumnName="EmotionTime" />
+                <ScalarProperty Name="InterviewId" ColumnName="InterviewId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewFeedbacks">
+            <EntityTypeMapping TypeName="vRecruitModel.InterviewFeedback">
+              <MappingFragment StoreEntitySet="InterviewFeedbacks">
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="InterviewId" ColumnName="InterviewId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewQuestionsTimes">
+            <EntityTypeMapping TypeName="vRecruitModel.InterviewQuestionsTime">
+              <MappingFragment StoreEntitySet="InterviewQuestionsTimes">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="IsAnswerCorrect" ColumnName="IsAnswerCorrect" />
+                <ScalarProperty Name="QuestionTime" ColumnName="QuestionTime" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="InterviewId" ColumnName="InterviewId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interviews">
+            <EntityTypeMapping TypeName="vRecruitModel.Interview">
+              <MappingFragment StoreEntitySet="Interviews">
+                <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
+                <ScalarProperty Name="InterviewVideo" ColumnName="InterviewVideo" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="InterviewId" ColumnName="InterviewId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="vRecruitModel.Job">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="Contact_Person" ColumnName="Contact_Person" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Years_of_Exp" ColumnName="Years_of_Exp" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="JobTargetDate" ColumnName="JobTargetDate" />
+                <ScalarProperty Name="JobCount" ColumnName="JobCount" />
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MCallerDatas">
+            <EntityTypeMapping TypeName="vRecruitModel.MCallerData">
+              <MappingFragment StoreEntitySet="MCallerDatas">
+                <ScalarProperty Name="SendSMSMessage" ColumnName="SendSMSMessage" />
+                <ScalarProperty Name="NextAction" ColumnName="NextAction" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CallType" ColumnName="CallType" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="CallDuration" ColumnName="CallDuration" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NextActions">
+            <EntityTypeMapping TypeName="vRecruitModel.NextAction">
+              <MappingFragment StoreEntitySet="NextActions">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="vRecruitModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="QuestionGroupId" ColumnName="QuestionGroupId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="QuestionSkill" ColumnName="QuestionSkill" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="QuestionStatus" ColumnName="QuestionStatus" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionAnswerImages">
+            <EntityTypeMapping TypeName="vRecruitModel.QuestionAnswerImage">
+              <MappingFragment StoreEntitySet="QuestionAnswerImages">
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionGroups">
+            <EntityTypeMapping TypeName="vRecruitModel.QuestionGroup">
+              <MappingFragment StoreEntitySet="QuestionGroup">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SendMesssages">
+            <EntityTypeMapping TypeName="vRecruitModel.SendMesssage">
+              <MappingFragment StoreEntitySet="SendMesssages">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SkillMasters">
+            <EntityTypeMapping TypeName="vRecruitModel.SkillMaster">
+              <MappingFragment StoreEntitySet="SkillMasters">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="vRecruitModel.Skill">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="vRecruitModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="State1" ColumnName="State" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="vRecruitModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="vRecruitModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Testtime" ColumnName="Testtime" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="QueId" ColumnName="QueId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMappings">
+            <EntityTypeMapping TypeName="vRecruitModel.UserMapping">
+              <MappingFragment StoreEntitySet="UserMapping">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserMappingId" ColumnName="UserMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="vRecruitModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

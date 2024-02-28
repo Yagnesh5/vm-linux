@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7CD3635-DF9A-44A0-AB71-1D0528B1AD7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>vrecruit.DataBase</RootNamespace>
+    <AssemblyName>vrecruit.DataBase</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comman\Comman.cs" />
+    <Compile Include="EntityDataModel\AccessPermission.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Activity.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\ActivityType.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Answer.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AspNetRole.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AspNetUser.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AspNetUserClaim.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AspNetUserLogin.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Candidate.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CandidateExam.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CandidatesResume.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CandidateTestRecord.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CandidateTestResult.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CandidateTestURL.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CandidateUpload.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\City.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Client.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\ClientCandidateMapping.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Company.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Contact.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Country.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Customer.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\C__MigrationHistory.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Entity.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Exam.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Feedback.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Interview.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\InterviewEmotion.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\InterviewFeedback.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\InterviewQuestionsTime.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Job.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MCallerData.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NextAction.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Question.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\QuestionAnswerImage.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\QuestionGroup.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SendMesssage.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Skill.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SkillMaster.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\State.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysdiagram.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\Test.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\UserMapping.cs">
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\vRecruit.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vRecruit.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\vRecruit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vRecruit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\vRecruit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vRecruit.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Master.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EntityDataModel\vRecruit.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>vRecruit.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="EntityDataModel\vRecruit.edmx.diagram">
+      <DependentUpon>vRecruit.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityDataModel\vRecruit.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>vRecruit.Context.cs</LastGenOutput>
+      <DependentUpon>vRecruit.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityDataModel\vRecruit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>vRecruit.edmx</DependentUpon>
+      <LastGenOutput>vRecruit.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
