@@ -1,0 +1,218 @@
+﻿@model vrecruit.DataBase.ViewModel.QuestionAnswerVM
+@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    string Currentrole = string.Empty;
+    if (Session["CurrentRole"] != null)
+    {
+        Currentrole = Session["CurrentRole"].ToString();
+    }
+}
+<style>
+    label {
+        display: table-column;
+    }
+</style>
+<div class="small-header transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                    <li class="active">
+                        <span>Question</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Question
+            </h2>
+            <small>Create question here.</small>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "submitform", role = "form" }))
+{
+
+    <div class="content">
+        <div class="alert alert-info show hidden" id="subTestDiv">
+            Please check created question list and move to
+            <span><strong style="color: #c54f3c;">Test Menu!</strong></span>
+        </div>
+        <div class="row hidden" id="DetailsDiv">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                           
+                        </div>
+                        Create Question
+                    </div>
+                    <div class="panel-body">
+                        <input type="text" name="LastUpdateBy" id="LastUpdateBy" class="hidden" value="@Session["CurrentUserId"]" />
+                        @Html.HiddenFor(x => x.QuestionId)
+                        @Html.HiddenFor(x => x.AnswerId)
+                        @Html.HiddenFor(x => x.IsEdit)
+                        @Html.HiddenFor(x => x.IsDelete)
+                        @Html.HiddenFor(x => x.IsExport)
+                        @Html.HiddenFor(x => x.IsPrint)
+
+                        <div class="form-group" id="">
+                            <label>Question</label>
+                            <div class="col-lg-12">
+                                <div class="hpanel">
+                                    <div class="panel-body" style="padding-bottom: inherit;">
+                                        <div class="summernote">
+                                            <h4 id="quetext" class="quetext"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Currentrole == "SUPER ADMIN")
+                        {
+                            <div class="form-group">
+                                <div><label> <input type="checkbox" class="" id="chkCmp"> Is For Particular Company </label></div>
+                            </div>
+                            <div class="form-group" id="DivCompanyName">
+                                <label>Company </label>
+                                @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.CompanyList, "ID", "CompanyName", Model.CompanyList), "Select Company", new { @class = "js-source-states", @style = "width: 100%" })
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="text" name="CompanyId" id="CompanyId" class="hidden" value="@Session["currentCompanyId"]" />
+                        }
+                        <div class="form-group col-lg-4">
+                            <label>Question Skills</label>
+                            @*@Html.TextBoxFor(x => x.QuestionSkill, new { @class = "form-control", @placeholder = "QuestionSkill", required = "required" })*@
+                            @Html.DropDownList("QuestionSkill", Model.QuestionSkillList, "Question Skill", new { @class = "form-control", @placeholder = "Question Skill", required = "required" })
+
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label> Question Type</label>
+                            @Html.DropDownListFor(x => x.QuestionType, new[]{
+                        new SelectListItem(){ Text = "Single Answer", Value = "1"},
+                        new SelectListItem(){ Text = "Multi Answer", Value = "2"}
+                        }, "Select QuestionType", new { @class = "js-source-states", @style = "width: 100%", required = "required" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Answer</label>
+                            <table class="form-table col-lg-12" id="customFields" border="0">
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group m-b">
+                                                <span class="input-group-addon">
+                                                    <label>Option 1 </label>
+                                                    @Html.CheckBoxFor(x => x.AnsChk1, new { @class = "Ansoption" })
+                                                </span>
+                                                @Html.TextBoxFor(x => x.Option1, new { @class = "form-control optionAns", @placeholder = "Enter Option", required = "required" })
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group m-b">
+                                                <span class="input-group-addon">
+                                                    <label>Option 2</label>
+                                                    @Html.CheckBoxFor(x => x.AnsChk2, new { @class = "Ansoption" })
+                                                </span>
+                                                @Html.TextBoxFor(x => x.Option2, new { @class = "form-control optionAns", @placeholder = "Enter Option", required = "required" })
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default bootstrap-touchspin-up addCF" type="button">+</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div class="text-right m-t-xs">
+                            <button class="btn btn-sm btn-primary m-t-n-xs" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                            <button class="btn btn-sm btn-warning m-t-n-xs hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                            <button class="btn btn-sm btn-default m-t-n-xs" type="button" id="btncancel"><strong>Cancel</strong></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="ListDiv">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="row"  style="padding-top: 14px;">
+
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" id="txtEmployeeName" name="txtEmployeeName" autocomplete="off" placeholder="Search Question...!!!" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="display:none;">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.SearchQuestionType, new[]{
+                        new SelectListItem(){ Text = "Single Answer", Value = "1"},
+                        new SelectListItem(){ Text = "Multi Answer", Value = "2"}
+                        }, "Select QuestionType", new { @class = "js-source-states", @style = "width: 100%", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-success" type="button" id="btnSearch"><strong>Search</strong></button>
+                            </div>
+                            <div class="col-md-2">
+                                @if (Model.IsAdd == true)
+                                {
+                                    <button class="btn btn-primary" type="button" id="btnIn"><strong>Add New Question</strong></button>
+                                }
+                            </div>
+                            <div class="panel-tools">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="tblDatatable" class="display table table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Question</th>
+                                        <th>Question Type</th>
+                                        <th class="col-md-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div style="text-align:center">
+        <img src="~/Images/loader.gif" id="loading" />
+    </div>
+
+}
+
+@section Scripts{
+    <script src="~/Scripts/custom/QuestionBank.js"></script>
+}

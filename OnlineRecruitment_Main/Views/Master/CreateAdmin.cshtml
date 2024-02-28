@@ -1,0 +1,177 @@
+﻿@model OnlineRecruitment_Main.CustomModels.UserViewModel
+@{
+    ViewBag.Title = "CreateAdmin";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+@using (Html.BeginForm("CreateAdmin", "Account", FormMethod.Post, new { id = "submitform", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(x => x.IsEdit)
+    @Html.HiddenFor(x => x.IsDelete)
+    @Html.HiddenFor(x => x.IsExport)
+    @Html.HiddenFor(x => x.IsPrint)
+
+    <div class="small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                        <li class="active">
+                            <span>Create Admin</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Create Admin
+                </h2>
+                <small>Create Company Admin.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="row hidden" id="Usersdiv">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                           
+                        </div>
+                        Admin form
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="" class="p-m tab-pane active">
+                                <div class="row">
+                                    @*<div class="col-lg-3 text-center">
+                                            <i class="pe-7s-user fa-5x text-muted"></i>
+                                            <p class="small m-t-md">
+                                                <strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
+                                                <br /><br />Lorem Ipsum has been the industry's dummy text of the printing and typesetting
+                                            </p>
+                                        </div>*@
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            @Html.HiddenFor(x => x.Id)
+                                            <div class="form-group col-lg-4">
+                                                <label>Username</label>
+                                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "username", required = "required" })
+                                            </div>
+                                            @*<div class="form-group col-lg-12">
+                                                    <label>User Roles</label>
+                                                    @Html.DropDownListFor(m => m.RoleName, new SelectList(Model.Roleslist, "Name", "Name", Model.RoleName), "Select Roles", new { @class = "js-source-states", @style = "width: 100%" })
+                                                </div>*@
+
+                                            @*<input type="text" name="RoleName" id="RoleName" value="ADMIN">*@
+
+                                            <div class="form-group col-lg-4">
+                                                <label>Company</label>
+                                                @*<select class="js-source-states" style="width: 100%" id="CompanyId" name="CompanyId"></select>*@
+                                                @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.CompanyList, "ID", "CompanyName", Model.CompanyId), "Select Company", new { @class = "js-source-states", @style = "width: 100%" })
+                                            </div>
+                                            <div id="PsdDiv">
+                                                <div class="form-group col-lg-4">
+                                                    <label>Password</label>
+                                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "******", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Confirm Password</label>
+                                                    @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "******", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-4">
+                                                <label>Email Address</label>
+                                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "user@email.com.", required = "required" })
+                                            </div>
+                                            <div class="form-group col-lg-4">
+                                                <label>PhoneNumber</label>
+                                                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-right m-t-xs">
+                                    <button class="btn btn-warning hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                                    <button class="btn btn-success" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                                    <button class="btn btn-default" type="button" id="btncancel"><strong>Cancel</strong></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="m-t-md">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="userdetailsdata">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hpanel">
+                        <div class="panel-heading">
+                            <div class="row" style="padding-top: 14px;">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                            <input type="text" class="form-control" id="txtSearch" name="txtSearch" autocomplete="off" placeholder="Search Text...!!!" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-success" type="button" id="btnSearch"><strong>Search</strong></button>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (Model.IsAdd == true)
+                                    {
+                                        <button class="btn btn-primary" type="button" id="btnIn"><strong>Add New Admin</strong></button>
+                                    }
+                                </div>
+                                <div class="panel-tools">
+                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="UserDatatable" class="display table table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>UserName</th>
+                                            <th>Role</th>
+                                            <th>Email</th>
+                                            <th>Company Name</th>
+                                            <th>Phone Number</th>
+                                            <th>Last Update Date</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center">
+        <img src="~/Images/loader.gif" id="loading" />
+    </div>
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/custom/CreateAdmin.js"></script>
+

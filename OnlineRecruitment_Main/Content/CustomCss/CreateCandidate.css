@@ -1,0 +1,15 @@
+﻿table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+    background-color: #fff !important;
+}
+
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+    border: 1px solid #ddd !important;
+}
+
+table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child {
+    border-right-width: 1px !important;
+}
+
+.col-lg-6 {
+    width: 100% !important;
+}

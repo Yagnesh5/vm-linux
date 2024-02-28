@@ -1,0 +1,154 @@
+﻿.pen body {
+    padding-top: 50px;
+}
+
+/* Social Buttons - Twitter, Facebook, Google Plus */
+.btn-twitter {
+    background: #00acee;
+    color: #fff
+}
+
+    .btn-twitter:link, .btn-twitter:visited {
+        color: #fff
+    }
+
+    .btn-twitter:active, .btn-twitter:hover {
+        background: #0087bd;
+        color: #fff
+    }
+
+.btn-instagram {
+    color: #fff;
+    background-color: #3f729b;
+    border-color: rgba(0,0,0,0.2);
+}
+
+    .btn-instagram:focus, .btn-instagram.focus {
+        color: #fff;
+        background-color: #305777;
+        border-color: rgba(0,0,0,0.2);
+    }
+
+    .btn-instagram:hover {
+        color: #fff;
+        background-color: #305777;
+        border-color: rgba(0,0,0,0.2);
+    }
+
+.btn-github {
+    color: #fff;
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2);
+}
+
+    .btn-github:focus, .btn-github.focus {
+        color: #fff;
+        background-color: #2b2b2b;
+        border-color: rgba(0,0,0,0.2);
+    }
+
+    .btn-github:hover {
+        color: #fff;
+        background-color: #2b2b2b;
+        border-color: rgba(0,0,0,0.2);
+    }
+
+/* MODAL FADE LEFT RIGHT BOTTOM */
+.modal.fade:not(.in).left .modal-dialog {
+    -webkit-transform: translate3d(-25%, 0, 0);
+    transform: translate3d(-25%, 0, 0);
+}
+
+.modal.fade:not(.in).right .modal-dialog {
+    -webkit-transform: translate3d(25%, 0, 0);
+    transform: translate3d(25%, 0, 0);
+}
+
+.modal.fade:not(.in).bottom .modal-dialog {
+    -webkit-transform: translate3d(0, 25%, 0);
+    transform: translate3d(0, 25%, 0);
+}
+
+.modal.right .modal-dialog {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+}
+
+.modal.left .modal-dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+    .modal.left .modal-dialog.modal-sm {
+        max-width: 300px;
+    }
+
+.modal.left .modal-content, .modal.right .modal-content {
+    min-height: 100vh;
+    border: 0;
+}
+
+.mycollapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+    .myactive, .mycollapsible:hover {
+        background-color: #555;
+    }
+
+.mycontent {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.panel-body {
+    padding: 10px !important;
+}
+#quesbody {
+    height: 400px !important;
+}
+
+.hpanel .panel-body {
+    padding: 10px !important;
+}
+.zoom {
+    background-color: green;
+    transition: transform .2s;
+    width:30%;
+    / Animation / width: 40%;
+    margin: 0 auto;
+}
+
+    .zoom:hover {
+        transform: scale(2);
+        / (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) /
+    }
+
+/* stop mouse selection */
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.note-content > table > tbody{
+    display: block;
+}

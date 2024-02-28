@@ -1,0 +1,290 @@
+﻿@model vrecruit.DataBase.ViewModel.ClientVM
+@{
+    ViewBag.Title = "Client";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    var Currentrole = string.Empty;
+    if (Session["CurrentRole"] != null)
+    {
+        Currentrole = Session["CurrentRole"].ToString();
+    }
+}
+@using (Html.BeginForm("Client", "Master", FormMethod.Post, new { id = "submitform", role = "form" }))
+{
+    <div class="small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                        <li class="active">
+                            <span>Client </span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Client
+                </h2>
+                <small>Create Client.</small>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row hidden" id="Creatediv">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+
+                        </div>
+                        Client Form
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="" class="p-m tab-pane active">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            @Html.HiddenFor(x => x.ClientId)
+                                            @Html.HiddenFor(x => x.IsEdit)
+                                            @Html.HiddenFor(x => x.IsDelete)
+                                            @Html.HiddenFor(x => x.IsExport)
+                                            @Html.HiddenFor(x => x.IsPrint)
+                                            <input type="hidden" id="LastUpdateBy" name="LastUpdateBy" value="@Session["CurrentUserId"]" />
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label>Client Name</label>
+                                                    @Html.TextBoxFor(x => x.ClientName, new { @class = "form-control", @placeholder = "Client Name", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4" id="divusername">
+                                                    <label>User Name</label>
+                                                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "User Name", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4" id="DivCompanyName">
+                                                    <label>Company Name</label>
+                                                    @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.CompanyList, "ID", "CompanyName", Model.CompanyList), "Select Company", new { @class = "js-source-states", @style = "width: 100%" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                @*<div class="form-group col-lg-4">
+                                                        <input type="text" name="CompanyId" id="CompanyId" value="@Session["currentCompanyId"]" class="hidden">
+                                                    </div>*@
+                                                <div class="form-group col-lg-4">
+                                                    <label>Email Address</label>
+                                                    @Html.TextBoxFor(x => x.ClientEmail, new { @class = "form-control", @placeholder = "user@email.com.", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>web site</label>
+                                                    @Html.TextBoxFor(x => x.ClientWWW, new { @class = "form-control", @placeholder = "www.client.com.", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Phone Number</label>
+                                                    @Html.TextBoxFor(x => x.ClientPhone, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label>Mobile Number</label>
+                                                    @Html.TextBoxFor(x => x.ClientMobile, new { @class = "form-control", @placeholder = "Enter ClientMobile.", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Password</label>
+                                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "******", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Confirm Password</label>
+                                                    @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "******", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Contact Person</label>
+                                                    @Html.TextBoxFor(x => x.Contact_Person, new { @class = "form-control", @placeholder = "Contact Person", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Client PAN No</label>
+                                                    @Html.TextBoxFor(x => x.Client_PAN_No, new { @class = "form-control", @placeholder = "Client PAN No", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Client GST</label>
+                                                    @Html.TextBoxFor(x => x.ClientGST, new { @class = "form-control", @placeholder = "Client GST", required = "required" })
+                                                </div>
+
+                                                <div class="form-group col-lg-4" id="divClientStatus">
+                                                    <label>Status</label>
+                                                    <select class="js-source-states" style="width: 100%" id="ClientIsactive" name="ClientIsactive" required>
+                                                        <option>Select Status</option>
+                                                        <option value="True">Active</option>
+                                                        <option value="False">Deactive</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col-lg-4">
+                                                    <label>Client Address</label>
+                                                    @Html.TextAreaFor(x => x.ClientAddress, new { @class = "form-control", @placeholder = "Enter Client Address.", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>City</label>
+                                                    @Html.TextBoxFor(x => x.ClientCity, new { @class = "form-control", @placeholder = "City" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label>Country</label>
+                                                    @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.CountryList, "Id", "Country1", Model.CountryList), "Select Country", new { @class = "js-source-states", @style = "width: 100%" })
+                                                </div>
+                                            </div>
+                                            @if (Currentrole == "SUPER ADMIN")
+                                            {
+                                                @*<div class="row">
+                                                        <div class="form-group col-lg-12">
+                                                            <div><label> <input type="checkbox" class="" id="chkCmp"> Is For Particular Company </label></div>
+                                                        </div>
+                                                    </div>*@
+                                                <div class="row">
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+
+                                                </div>
+                                            }
+                                            <div class="row">
+
+                                            </div>
+                                            <div class="row">
+
+                                            </div>
+                                            <div class="row" id="psdDiv">
+
+                                            </div>
+                                            <div class="row">
+
+                                            </div>
+                                            <div class="row">
+
+                                            </div>
+                                            <div class="row">
+
+                                            </div>
+                                            <div class="row">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right m-t-xs">
+                                    <button class="btn btn-info hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                                    <button class="btn btn-success" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                                    <button class="btn btn-default" type="button" id="btncancel"><strong>Cancel</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-t-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="detailsdata">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hpanel">
+                        <div class="panel-heading">
+                            <div class="row" style="padding-top: 14px;">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                            <input type="text" class="form-control" id="txtSearch" name="txtSearch" autocomplete="off" placeholder="Search Text...!!!" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select id="SearchClientStatus" class="js-source-states" style="width: 100%" name="SearchClientStatus">
+                                            <option value="true" selected>Active</option>
+                                            <option value="false">InActive</option>
+                                            <option value="">All</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-success" type="button" id="btnSearch"><strong>Search</strong></button>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (Model.IsAdd == true)
+                                    {
+                                        <button class="btn btn-primary" type="button" id="btnIn"><strong>Add New Client</strong></button>
+                                    }
+                                </div>
+                                @*<div class="col-md-2">
+                                    <select id="drpdwnFilter" name="tblDatatable_length" aria-controls="tblDatatable" class="form-control input-sm" style="height: 34px;line-height: 30px;font-size: 14px;color: #555;">
+                                        <option value="Active" style="font-size: 14px;color: #555;" selected>Active</option>
+                                        <option value="Inactive" style="font-size: 14px;color: #555;">Inactive</option>
+                                        <option value="" style="font-size: 14px;color: #555;">All</option>
+                                    </select>
+                                </div>*@
+                                
+                                <div class="panel-tools">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="tblDatatable" class="display table table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Client Name</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Mobile Number</th>
+                                            <th>GST</th>
+                                            <th>Client Address</th>
+                                            <th>Last Update Date</th>
+                                            <th>City</th>
+                                            <th>Country</th>
+                                            <th>Status</th>
+                                            <th class="col-md-2">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center">
+            <img src="~/Images/loader.gif" id="loading" />
+        </div>
+    </div>
+
+}
+<form id="form1" name="form1">
+    <div class="modal fade" id="psdModel" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Reset Password</h4>
+                    <small class="font-bold">Change Client Password Here.</small>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="uid" />
+                    <label>Password</label>
+                    @Html.PasswordFor(x => x.Password2, new { @class = "form-control", @placeholder = "******", required = "required" })
+                    <label>Confirm Password</label>
+                    @Html.PasswordFor(x => x.ConfirmPassword2, new { @class = "form-control", @placeholder = "******", required = "required" })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnUpdatePsd" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/Scripts/custom/Client.js"></script>

@@ -1,0 +1,14 @@
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\vrecruit.DataBase.dll.config
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\vrecruit.DataBase.dll
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\vrecruit.DataBase.pdb
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\EntityFramework.dll
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\EntityFramework.SqlServer.dll
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\System.Web.Mvc.dll
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\EntityFramework.xml
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\EntityFramework.SqlServer.xml
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\bin\Debug\System.Web.Mvc.xml
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\obj\Debug\vrecruit.DataBase.csproj.AssemblyReference.cache
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\obj\Debug\vrecruit.DataBase.csproj.CoreCompileInputs.cache
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\obj\Debug\vrecruit.D16F4CB9.Up2Date
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\obj\Debug\vrecruit.DataBase.dll
+F:\SynorisGitHub\vrecruit\vrecruit.DataBase\obj\Debug\vrecruit.DataBase.pdb

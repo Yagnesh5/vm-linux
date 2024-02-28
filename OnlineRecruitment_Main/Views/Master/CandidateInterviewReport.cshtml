@@ -1,0 +1,504 @@
+﻿
+@{
+    ViewBag.Title = "CandidateInterviewReport";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    var CurrentUser = string.Empty;
+    if (Session["CurrentUserId"] != null)
+    {
+        CurrentUser = Session["CurrentUserId"].ToString();
+    }
+}
+
+<div class="small-header">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                    <li class="active">
+                        <span>Candidates Interview Report </span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Candidate Interview Report
+            </h2>
+
+        </div>
+    </div>
+</div>
+<br />
+@{
+    var Currentrole = Session["CurrentRole"].ToString();
+}
+
+@if (Currentrole == "SUPER ADMIN")
+{
+    <b>Company : </b>@Html.DropDownList("ID", (IEnumerable<SelectListItem>)ViewBag.Companies, "Select Company", new { id = "companyId" })
+    
+    <b>Client : </b>
+    <select id="clientList" disabled><option value='0'>Select Client</option></select>
+    <b>Job : </b>
+    <select id="jobList" disabled><option value='0'>Select Job</option></select>
+    <button id="btnForFilter" type="button" name="Submit" value="Submit" class="btn btn-success float-left" disabled>Apply Filter</button>
+
+}
+else
+{
+    <b>Client : </b>
+    <select id="clientList" ><option value='0'>Select Client</option></select>
+    <b>Job : </b>
+    <select id="jobList" disabled><option value='0'>Select Job</option></select>
+    <button id="btnForFilter" type="button" name="Submit" value="Submit" class="btn btn-success float-left" disabled>Apply Filter</button>
+
+}
+
+
+<br />
+<br />
+<table class="table table-light table-bordered">
+    <tr text-align="center">
+        <td>
+            <h3>Candidate List</h3>
+        </td>
+        <td>
+            <h3>Questions</h3>
+        </td>
+        <td>
+            <h3>Interview Video</h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="300px">
+            <div id="candidateList" width="300px" height="auto" class="pull-right" style="display : inline-grid; text-align: center" ;>
+            </div>
+        </td>
+        <td width="300px">
+            <div height="auto" id="divQuestions">
+                <ul id="questions"></ul>
+            </div>
+        </td>
+        <td width="300px">
+            <div id="divVideo">
+
+            </div>
+
+            <div id="emotion">
+
+            </div>
+        </td>
+    </tr>
+</table>
+<br />
+
+<ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="comments-tab-just" data-toggle="tab" href="#comment-just" role="tab" aria-controls="comment-just"
+           aria-selected="true">Comments</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="add-comments-tab-just" data-toggle="tab" href="#add-comment-just" role="tab" aria-controls="add-comment-just"
+           aria-selected="false">Add Comment</a>
+    </li>
+</ul>
+<div id="divComments" class="tab-content card pt-5">
+    <div class="tab-pane fade show active" id="comment-just" role="tabpanel" aria-labelledby="comment-tab-just">
+        <p>
+            <table class="table table-light table-bordered">
+                <thead>
+                    <tr>
+                        <td>Sr. No.</td>
+                        <td>Comments</td>
+                    </tr>
+                </thead>
+                <tbody id="comments">
+                </tbody>
+            </table>
+        </p>
+    </div>
+    <div class="tab-pane fade show" id="add-comment-just" role="tabpanel" aria-labelledby="add-comment-tab-just">
+        <p>
+            @Html.TextArea("Comments", null, 10, 128, new { @id = "commentId", placeholder = "Enter your comments....." })
+        </p>
+    </div>
+</div>
+<br />
+<div id="divButton">
+    <button id="btnSubmit" type="button" name="Submit" value="Submit" class="btn btn-success float-left" disabled>Submit</button>
+
+
+</div>
+<br />
+<br />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/MultiSelect/select7.css" rel="stylesheet" />
+<script type="text/javascript">
+
+    $(document).ready(function () {
+         var questionsTime = [];
+
+        var clientList = $("#clientList");
+        var jobList = $("#jobList");
+        var candidateList = $("#candidateList");
+
+        var questions = $("#questions");
+        var interviewVideo = $("#divVideo");
+        var intervieeEmotion = $("#emotion");
+
+        var chkQuestionIds = [];
+        var chkValues = [];
+        var interviewId;
+        var comments = $("#comments");
+        var sessionCompanyID = '@Session["currentCompanyId"]';
+        
+        var value = '@Session["CurrentRole"]';
+        if (value != 'SUPER ADMIN') {
+             $.ajax({
+
+                url: "/Master/ClientListByCompanyId/?companyId=" + sessionCompanyID,
+                type: "GET",
+                contentType: "application/json;charset-utf=8",
+                dataType: "json",
+                async: false,
+                 success: function (data) {
+                    clientList.empty();
+                    jobList.empty();
+
+                    clientList.append("<option value = '0'>Select Client</option>");
+                    jobList.append("<option value = '0'>Select Job</option>");
+
+                    comments.empty();
+
+                    var clientlistLength = Object.keys(data.clientList).length;
+                    if (clientlistLength != 0) {
+                        $.each(data.clientList, function (i, value) {
+                            clientList.append($("<option></option>").val(data.clientList[i].ClientId).html(data.clientList[i].ClientName));
+                        })
+                        clientList.removeAttr("disabled");
+                         
+                    } else { clientList.attr("disabled", "disabled"); }
+                    
+                },
+                error: function (err) {
+                    alert("No Record Found");
+                }
+            })
+
+        }
+   
+        //Job's dropdown change event
+        jobList.change(function () {
+            questions.empty();
+            interviewVideo.empty();
+            intervieeEmotion.empty();
+            var jobId = this.value;
+
+        });
+
+        //Client's dropdown change event
+        clientList.change(function () {
+            questions.empty();
+            interviewVideo.empty();
+            intervieeEmotion.empty();
+            var clientId = this.value;
+            if (clientList == 0) {
+                jobList.attr("disabled", "disabled");
+                jobList.empty();
+
+                jobList.append("<option value = '0'>Select Job</option>");
+                return 0;
+            }
+            else {
+            $("#btnForFilter").removeAttr("disabled");
+
+            }
+
+           $.ajax({
+                url: "/Master/JobListByClientId/?clientId=" + clientId,
+                type: "GET",
+                contentType: "application/json;charset-utf=8",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    comments.empty();
+
+                    jobList.empty();
+                    jobList.append("<option value = '0'>Select Job</option>");
+                    var jobListLength = Object.keys(data.jobList).length;
+                    if (jobListLength != 0) {
+                        $.each(data.jobList, function (i, value) {
+                            jobList.append($("<option></option>").val(data.jobList[i].JobId).html(data.jobList[i].JobName));
+                        })
+                        jobList.removeAttr("disabled");
+                    } else { jobList.attr("disabled", "disabled"); }
+                },
+                error: function (err) {
+                    alert("No Record Found");
+                }
+            })
+        });
+
+        //Company's dropdown change event
+        $("#companyId").change(function () {
+            questions.empty();
+            interviewVideo.empty();
+            intervieeEmotion.empty();
+            $("#btnForFilter").removeAttr("disabled");
+            var companyId = this.value;
+
+            if (companyId == 0) {
+                clientList.attr("disabled", "disabled");
+                jobList.attr("disabled", "disabled");
+                clientList.empty();
+                jobList.empty();
+
+                clientList.append("<option value = '0'>Select Client</option>");
+                jobList.append("<option value = '0'>Select Job</option>");
+                return 0;
+            }
+            jobList.attr("disabled", "disabled");
+            $.ajax({
+
+                url: "/Master/ClientListByCompanyId/?companyId=" + companyId,
+                type: "GET",
+                contentType: "application/json;charset-utf=8",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    clientList.empty();
+                    jobList.empty();
+
+                    clientList.append("<option value = '0'>Select Client</option>");
+                    jobList.append("<option value = '0'>Select Job</option>");
+
+                    comments.empty();
+
+                    var clientlistLength = Object.keys(data.clientList).length;
+                    if (clientlistLength != 0) {
+                        $.each(data.clientList, function (i, value) {
+                            clientList.append($("<option></option>").val(data.clientList[i].ClientId).html(data.clientList[i].ClientName));
+                        })
+                        clientList.removeAttr("disabled");
+                    } else { clientList.attr("disabled", "disabled"); }
+
+                },
+                error: function (err) {
+                    alert("No Record Found");
+                }
+            })
+
+        });
+        $("#btnForFilter").click(function () {
+              
+            var companyId;
+            if (value != 'SUPER ADMIN')
+                companyId = sessionCompanyID;
+
+            else
+                companyId = $("#companyId").val();
+
+             var clientId = $("#clientList").val();
+            var jobid = $("#jobList").val();
+             $.ajax({
+
+                url: "/Master/CandidateListByFilter/?companyid=" + companyId +"&clientId="+clientId +"&jobId="+jobid,
+                type: "GET",
+                contentType: "application/json;charset-utf=8",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    comments.empty();
+                    var dataLength = Object.keys(data).length;
+                    candidateList.empty();
+                    if (dataLength != 0) {
+                        $.each(data, function (i, value) {
+                            candidateList.append("<img src='/Content/img/1.png' /><a href='#' id='btnGet'" + data[i].CandidateId + "'>" + data[i].CandidateName + "</a><input type='hidden' id='candidateId'" + data[i].CandidateId + "' value='" + data[i].CandidateId + "' />");
+                        })
+                    }
+                },
+                error: function (err) {
+                    alert("No Record Found");
+                }
+            })
+
+        });
+
+        var interviewEmotiontime;
+
+        $(document).on("click", "a[id^='btnGet']", function () {
+            var candidateId = $(this).next("input").attr("value");
+
+            $.ajax({
+                url: "/Master/CandInterviewVedio/?candidateId=" + candidateId,
+                type: "GET",
+                contentType: "application/json;charset-utf=8",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var j = 1;
+                    var l = 1;
+                  questions.empty();
+                    interviewVideo.empty();
+                    intervieeEmotion.empty();
+
+                    interviewId = JSON.stringify(data.candidatesrecord[0].InterviewId);
+                    chkQuestionIds = [];
+                    $.each(data.candidatesrecord, function (i, value) {
+                        chkQuestionIds.push(data.candidatesrecord[i].QueId);
+                        questions.append("<input type='checkbox' id='chkQuestion" + j + "' /><a  id= 'question' href='#'  > " + j++ + '&nbsp;&nbsp;&nbsp;' + data.candidatesrecord[i].Question1 + " </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id ='" + data.candidatesrecord[i].QueId + "' style='display:none;'> </span> <br />")
+                    });
+                    var interviewRecord = JSON.stringify(data.candidatesrecord[0].InterviewVideo);
+                    interviewRecord = interviewRecord.toString().replace(/"/g, "");
+
+
+                    interviewVideo.append("<video class='myVideo' controls  width='320' height='176'><source src='/InterviewVideo/" + interviewRecord + "' type='video/mp4'></video>");
+                    var video = document.getElementsByTagName("video")[0];
+                    interviewEmotiontime = data.interviewEmotions;
+
+                    intervieeEmotion.append(" <br /> Emotion := <label id='emotionName'></label> ")
+
+                    var k = 1;
+
+                    $.each(data.interviewFeedback, function (i, value) {
+                        comments.append("<tr><td>" + k++ + "</td><td>" + data.interviewFeedback[i].Comment + "</td></tr>");
+                    });
+
+                    $.each(data.interviewQuestions, function (i, value) {
+
+                        questionsTime.push({ QuestionId: data.interviewQuestions[i].QuestionId, QuestionTime: data.interviewQuestions[i].QuestionTime });
+                    });
+
+                    $.each(data.answers, function (i, value) {
+                        if (data.answers[i] == 1) {
+
+                            $("#chkQuestion" + l).attr('checked', 'checked')
+                        }
+                        l++;
+                    });
+                },
+                error: function (err) {
+                    alert("No Record Found");
+                }
+            })
+        });
+
+        var interviewFeedBackQuestions = [];
+        $(document).on("click", "a#question", function () {
+             var video = document.getElementsByTagName("video")[0];
+            console.log($("#question").val());
+           $(this).next("span").toggle();
+            var spanId = $(this).next("span").attr("id");
+
+            var dbQuestionTime = questionsTime.find(item => item.QuestionId == spanId).QuestionTime;
+
+           // $("video.myVideo").trigger('play');
+            seekToTime(dbQuestionTime);
+
+            function seekToTime(ts) {
+             // try and avoid pauses after seeking
+              video.pause();
+                video.currentTime = ts;
+
+                var timer = setInterval(function() {
+                    if (video.paused && video.readyState ==4 || !video.paused) {
+                        video.play();
+                        clearInterval(timer);
+                    }
+                }, 50);
+            }
+
+            video.addEventListener('timeupdate', function () {
+                $("#emotionId").text(video.currentTime);
+                var videoCurrentTime = Math.round(video.currentTime);
+                $.each(interviewEmotiontime, function (i, value) {
+                    var dbEmotionTime = Math.round(interviewEmotiontime[i].EmotionTime);
+                    if (videoCurrentTime == dbEmotionTime) {
+                        $("#emotionName").html(interviewEmotiontime[i].EmotionName);
+                    }
+                });
+
+            }, false);
+
+
+        });
+
+        $("#commentId").keyup(function () {
+            if (this.value != '')
+                $("#btnSubmit").removeAttr("disabled");
+            else
+                $("#btnSubmit").attr("disabled", "disabled");
+        });
+
+        $("#btnSubmit").click(function () {
+
+            chkValues = [];
+            $("input[id^='chkQuestion']").each(function () {
+                var isChecked = $(this).is(':checked') ? 1 : 0;
+                chkValues.push(isChecked);
+            });
+            var comment = $("#commentId").val();
+            var value = '@Session["CurrentUserId"]'; @*'@Request.RequestContext.HttpContext.Session["CurrentUserId"]';*@
+
+            for (var i = 0; i < chkQuestionIds.length; i++) {
+                for (var j = i; j >= i; j--) {
+                    interviewFeedBackQuestions.push({
+                        QuestionId: chkQuestionIds[i],
+                        IsAnswerCorrect: chkValues[j]
+                    });
+                }
+            }
+            var dataToSend = JSON.stringify({ 'interviewFeedback': {
+                InterviewId: interviewId,
+                Comment: comment,
+                CommentedBy: value
+                    }, interviewQuestionsFeedback : interviewFeedBackQuestions });
+            $.ajax({
+                url: "/CommonViews/SaveInterviewFeedback/",
+                type: "POST",
+                contentType: "application/json;charset-utf=8",
+                data: dataToSend,
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#commentId").val("");
+                    $("#btnSubmit").attr("disabled", "disabled");
+                    chkQuestionIds = [];
+                    interviewFeedBackQuestions = [];
+
+                    $.ajax({
+                        url: "/CommonViews/GetComments/?interviewId=" + interviewId,
+                        type: "POST",
+                        contentType: "application/json;charset-utf=8",
+                        data: dataToSend,
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            comments.empty();
+                            var counter = 1;
+                            $.each(data, function (i, value) {
+                                comments.append("<tr><td>" + counter++ + "</td><td>" + data[i].Comment + "</td></tr>");
+                            });
+                        },
+                        error: function (err) {
+                            alert("No Record Found");
+                        }
+                    });
+
+                    if (data.Message == "Success")
+                        alert("Comment Saved Successfully!");
+                },
+                error: function (err) {
+                    alert("No Record Found");
+                }
+            })
+        });
+    });
+</script>
+
+
+
+
+
+

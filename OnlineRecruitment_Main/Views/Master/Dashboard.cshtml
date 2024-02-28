@@ -1,0 +1,202 @@
+﻿@model vrecruit.DataBase.ViewModel.IndexVM
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    string CurrentRole = string.Empty;
+    if (Session["CurrentRole"] != null)
+    {
+        CurrentRole = Session["CurrentRole"].ToString();
+    }
+}
+<header id="page-top" style="background-image:url(../../Images/landing/header.jpg);height: 534px;">
+    <div class="container">
+        <div class="heading">
+            <h1 style="color: white; margin-top: 30px; margin-bottom: 30px;" >
+                <span class="wel" >Welcome to EQHIRES</span>
+            </h1>
+        </div>
+        <div class="heading-image animate-panel" data-child="img-animate" data-effect="fadeInRight">
+            <div class="row">
+                <a href="@Url.Action("Candidate", "Master")">
+                    <div class="col-md-3 img-animate">
+                        <div class="hpanel hbggreen">
+                            <div class="panel-body">
+                                <div class="text-center">
+                                    <h3>Candidates</h3>
+                                    <p class="text-big font-light">
+                                        @Model.TotalCandidates
+                                    </p>
+                                    <small>
+                                        Total Candidate Count
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="@Url.Action("Job", "Master")">
+                    <div class="col-md-3 img-animate">
+                        <div class="hpanel hbgred">
+                            <div class="panel-body">
+                                <div class="text-center">
+                                    <h3>Jobs</h3>
+                                    <p class="text-big font-light">
+                                        @Model.TotalJobs
+                                    </p>
+                                    <small>
+                                        Total Jobs Count
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                @if (CurrentRole == "ADMIN" || CurrentRole == "SUPER ADMIN")
+                {
+                    <a href="@Url.Action("Client", "Master")">
+                        <div class="col-md-3 img-animate">
+                            <div class="hpanel hbgblue">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3>Clients</h3>
+                                        <p class="text-big font-light">
+                                            @Model.TotalClients
+                                        </p>
+                                        <small>
+                                            Total Client Count
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+
+                @if (CurrentRole == "ADMIN")
+                {
+                    <a href="@Url.Action("Users", "Master")">
+                        <div class="col-md-3 img-animate">
+                            <div class="hpanel hbgyellow">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3>Users</h3>
+                                        <p class="text-big font-light">
+                                            @Model.TotalUser
+                                        </p>
+                                        <small>
+                                            Total Users Count
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+                @if (CurrentRole == "SUPER ADMIN")
+                {
+                    <a href="@Url.Action("Companies", "Master")">
+                        <div class="col-md-3 img-animate">
+                            <div class="hpanel hbgyellow">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3>Companies</h3>
+                                        <p class="text-big font-light">
+                                            @Model.TotalComapnies
+                                        </p>
+                                        <small>
+                                            Total Companies Count
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+                @if (CurrentRole != "ADMIN" && CurrentRole != "SUPER ADMIN" && CurrentRole != "CLIENT")
+                {
+                    <a href="@Url.Action("Client", "Master")">
+                        <div class="col-md-3 img-animate">
+                            <div class="hpanel hbgblue">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3>Clients</h3>
+                                        <p class="text-big font-light">
+                                            @Model.TotalClients
+                                        </p>
+                                        <small>
+                                            Total Client Count
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="@Url.Action("Users", "Master")">
+                        <div class="col-md-3 img-animate">
+                            <div class="hpanel hbgred">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3>Users</h3>
+                                        <p class="text-big font-light">
+                                            @Model.TotalUser
+                                        </p>
+                                        <small>
+                                            Total Users Count
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    @*<a href="@Url.Action("Job", "Master")">
+                        <div class="col-md-3 img-animate">
+                            <div class="hpanel hbgyellow">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <h3>Jobs</h3>
+                                        <p class="text-big font-light">
+                                            @Model.TotalJobs
+                                        </p>
+                                        <small>
+                                            Total Jobs Count
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>*@
+                }
+            </div>
+        </div>
+    </div>
+</header>
+@section Scripts {
+    <script type="text/javascript">
+        $(".Dashboard").removeClass("active");
+        $(".acls_Dashboard").css("color", "white");
+        $(".acls_Dashboard").mouseover(function () {
+            $(".acls_Dashboard").css("color", "#6a6c6f");
+        });
+        $(".acls_Dashboard").mouseout(function () {
+            $(".acls_Dashboard").css("color", "white");
+        });
+        $(function () {
+
+            // Page scrolling feature
+            $('a.page-scroll').bind('click', function (event) {
+                var link = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $(link.attr('href')).offset().top - 50
+                }, 500);
+                event.preventDefault();
+            });
+
+            $('body').scrollspy({
+                target: '.navbar-fixed-top',
+                offset: 80
+            });
+
+        });
+    </script>
+}
+

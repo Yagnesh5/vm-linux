@@ -1,0 +1,21 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Name": "vrecruit.DataBase\\vrecruit.DataBase.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Name": "OnlineRecruitment_Main\\OnlineRecruitment_Main.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "vrecruitOdataApi\\vrecruitOdataApi.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      }
+    ]
+  }
+]

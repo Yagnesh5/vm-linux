@@ -1,0 +1,53 @@
+﻿@model vrecruit.DataBase.ViewModel.InterviewVM
+@{
+    ViewBag.Title = "Candidate";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<h2>EmotionDetection</h2>
+<script defer src="~/Scripts/face-api.min.js"></script>
+<script defer src="~/Scripts/custom/EmotionDetectionTest.js"></script>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    canvas {
+        position: absolute;
+    }
+</style>
+<table border="0">
+   
+    <tr>
+        <td colspan="2">
+            <div>
+                <label>Question 1 2 3 4 5 6 7</label>
+                @*@Html.TextAreaFor(x => x.ClientAddress, new { @class = "form-control", @placeholder = "Enter Client Address.", required = "required" })*@
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>
+                <video id="video" width="520" height="360"  controls autoplay muted></video>
+            </div>
+
+        </td>
+        <td>
+            <div>
+                @*<label>Emotions will be displayed here...</label>*@
+                <div class="result-container">
+                    <div id="emotion" style="background-color:yellow">Emotion</div>
+                    @*<div id="gender">Gender</div>
+                        <div id="age">Age</div>*@
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

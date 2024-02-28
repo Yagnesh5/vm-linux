@@ -1,0 +1,134 @@
+﻿@model vrecruit.DataBase.ViewModel.QuestionGroupVM
+@{
+    ViewBag.Title = "QuestionGroup";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    string Currentrole = string.Empty;
+    if (Session["CurrentRole"] != null)
+    {
+        Currentrole = Session["CurrentRole"].ToString();
+    }
+}
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "submitform", role = "form" }))
+{
+    @Html.HiddenFor(x => x.IsEdit)
+    @Html.HiddenFor(x => x.IsDelete)
+    @Html.HiddenFor(x => x.IsExport)
+    @Html.HiddenFor(x => x.IsPrint)
+
+    <div class="small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                        <li class="active">
+                            <span>Question Group</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                     Question Group
+                </h2>
+                <small>Create Question Group here.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="row"  style="padding-top: 14px;">
+            @if (Model.IsAdd == true)
+            {
+                <div class="col-lg-3">
+                    <div class="hpanel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                               
+                            </div>
+                            Create Question Group
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" id="form">
+                                <div class="form-group">
+                                    <label>Question Group</label>
+                                    <input type="text" name="GroupName" id="GroupName" placeholder="Enter GroupName" class="form-control" required>
+                                    <input type="text" name="ID" id="ID" class="hidden">
+                                    <input type="text" name="LastUpdateBy" id="LastUpdateBy" value="@Session["CurrentUserId"]" class="hidden">
+                                </div>
+                                @if (Currentrole == "SUPER ADMIN")
+                                {
+                                    <div class="form-group">
+                                        <div><label> <input type="checkbox" class="" id="chkCmp"> Is For Particular Company </label></div>
+                                    </div>
+
+                                    <div class="form-group" id="DivCompanyName">
+                                        <label>Company Name</label>
+                                        @Html.DropDownListFor(m => m.CompanyId, new SelectList(Model.CompanyList, "ID", "CompanyName", Model.CompanyList), "Select Company", new { @class = "js-source-states", @style = "width: 100%" })
+                                        @*<select class="js-source-states" style="width: 100%" id="CompanyId" name="CompanyId"></select>*@
+                                    </div>
+                                }
+                                else
+                                {
+                                    <input type="text" name="CompanyId" id="CompanyId" value="@Session["currentCompanyId"]" class="hidden">
+                                }
+                                <div>
+                                    <button class="btn btn-sm btn-primary m-t-n-xs" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                                    <button class="btn btn-sm btn-warning m-t-n-xs hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-9">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                           
+                        </div>
+                        Question Group List
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            @if (Currentrole == "SUPER ADMIN")
+                            {
+                                <table id="tblDatatable" class="display table table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Group Name</th>
+                                            <th>Company Name</th>
+                                            <th>Created By</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblBody"></tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <table id="tblDatatable" class="display table table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Group Name</th>
+                                            <th>Created By</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblBody"></tbody>
+                                </table>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center">
+        <img src="~/Images/loader.gif" id="loading" />
+    </div>
+
+}
+
+<script src="~/Scripts/custom/QuestionGroup.js"></script>

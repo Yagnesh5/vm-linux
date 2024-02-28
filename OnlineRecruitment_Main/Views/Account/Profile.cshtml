@@ -1,0 +1,157 @@
+﻿@model OnlineRecruitment_Main.CustomModels.UserViewModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+@using (Html.BeginForm("Profile", "Account", FormMethod.Post, new { id = "submitform", role = "form" }))
+{
+    <div class="small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                        <li class="active">
+                            <span>Profile </span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Profile
+                </h2>
+                <small>Your Profile.</small>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row" id="">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                        Profile page
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="" class="p-m tab-pane active">
+                                <div class="row">
+                                    @*<div class="col-lg-3 text-center">
+                                        <i class="pe-7s-user fa-5x text-muted"></i>
+                                        <p class="small m-t-md">
+                                            <strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
+                                            <br /><br />Lorem Ipsum has been the industry's dummy text of the printing and typesetting
+                                        </p>
+                                    </div>*@
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            @Html.HiddenFor(x => x.Id)
+                                            <div class="form-group col-lg-12">
+                                                <label>Username</label>
+                                                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "username", required = "required", disabled = "disabled" })
+                                            </div>
+                                            @if (Model.ClientId != 0)
+                                            {
+                                                <div class="form-group col-lg-6">
+                                                    <label>Client Name</label>
+                                                    @Html.TextBoxFor(x => x.ClientName, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                            }
+                                            <div class="form-group col-lg-6">
+                                                <label>Email Address</label>
+                                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "user@email.com.", required = "required", disabled = "disabled" })
+                                            </div>
+                                            @if (Model.ClientId == 0)
+                                            {
+                                                <div class="form-group col-lg-6">
+                                                    <label>PhoneNumber</label>
+                                                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                            }
+                                            @if (Model.ClientId != 0)
+                                            {
+
+                                                <div class="form-group col-lg-6">
+                                                    <label>Client Mobile</label>
+                                                    @Html.TextBoxFor(x => x.ClientMobile, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                                <div class="form-group col-lg-6">
+                                                    <label>Client Phone</label>
+                                                    @Html.TextBoxFor(x => x.ClientPhone, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                                <div class="form-group col-lg-6">
+                                                    <label>ClientGST</label>
+                                                    @Html.TextBoxFor(x => x.ClientGST, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                                <div class="form-group col-lg-6">
+                                                    <label>ClientWWW</label>
+                                                    @Html.TextBoxFor(x => x.ClientWWW, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <label>Client Address</label>
+                                                    @Html.TextAreaFor(x => x.ClientAddress, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (Model.Company != null)
+                                {
+                                    
+                                <hr />
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                        <label>Company Name</label>
+                                        @Html.TextBoxFor(x => x.Company.CompanyName, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Company Email </label>
+                                        @Html.TextBoxFor(x => x.Company.CompanyEmail, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Company Phone Number</label>
+                                        @Html.TextBoxFor(x => x.Company.PhoneNumber, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <div class="row">
+                                            <div class="col-xs-4 form-group">
+                                                <label>Country</label>
+                                                @Html.TextBoxFor(x => x.Company.Country, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                            </div>
+                                            <div class="col-xs-4 form-group">
+                                                <label>State</label>
+                                                @Html.TextBoxFor(x => x.Company.State, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                            </div>
+                                            <div class="col-xs-4 form-group">
+                                                <label>City</label>
+                                                @Html.TextBoxFor(x => x.Company.City, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label>Company Address</label>
+                                        @Html.TextAreaFor(x => x.Company.CompanyAddress, new { @class = "form-control", @placeholder = "Enter PhoneNumber.", required = "required", disabled = "disabled" })
+                                    </div>
+                                </div>
+                                }
+                                
+                                @*<div class="text-right m-t-xs">
+                                        <button class="btn btn-info hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                                        <button class="btn btn-success" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#side-menu li').addClass('active');
+    })
+</script>

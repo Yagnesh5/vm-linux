@@ -1,0 +1,117 @@
+﻿@model vrecruit.DataBase.ViewModel.SendMesssageVM
+@{
+    ViewBag.Title = "SendSMS";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    int cmpid = 0;
+    if (Session["currentCompanyId"] != null)
+    {
+        cmpid = Convert.ToInt32(Session["currentCompanyId"]);
+    }
+    string CurrentRole = string.Empty;
+    if (Session["CurrentRole"] != null)
+    {
+        CurrentRole = Session["CurrentRole"].ToString();
+    }
+}
+<div class="small-header transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                    <li class="active">
+                        <span>SendSMS</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Send SMS Templates
+            </h2>
+            <small>Add SMS Templates here.</small>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "submitform", role = "form" }))
+{
+    @Html.HiddenFor(x => x.IsExport)
+    @Html.HiddenFor(x => x.IsPrint)
+    @Html.HiddenFor(x => x.IsAdd)
+    @Html.HiddenFor(x => x.IsEdit)
+    @Html.HiddenFor(x => x.IsDelete)
+    @Html.HiddenFor(x => x.IsView)
+    <div class="content">
+        <div class="row" id="detailsdata">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="row" style="padding-top: 14px;">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" class="form-control" id="txtSearch" name="txtSearch" autocomplete="off" placeholder="Search Text...!!!" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-success" type="button" id="btnSearch"><strong>Search</strong></button>
+                            </div>
+                            <div class="col-md-2">
+                                @if (Model.IsAdd == true)
+                                {
+                                    <button class="btn btn-primary" type="button" id="btnIn"><strong>Add New SMS Template</strong></button>
+                                }
+                            </div>
+                            <div class="panel-tools">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="tblSMSTemplates" class="display table table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>SendSMS Templates</th>
+                                        <th class="col-md-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblBody" class="connectedSortable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row hidden" id="creatediv">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+
+                        </div>
+                        Send SMS
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" id="form">
+                            <div class="form-group col-lg-4">
+                                <label>Send SMS Template</label>
+                                <input id="SendSMSId" type="hidden" name="Id" value="" required>
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Send SMS", required = "required" })
+                            </div>
+                            <div class="form-group col-lg-4" style="margin-top: 23px;">
+                                <button class="btn btn-sm btn-primary m-t-n-xs" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                                <button class="btn btn-sm btn-warning m-t-n-xs hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                                <button class="btn btn-sm btn-default m-t-n-xs" type="button" id="btncancel"><strong>Cancel</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Sidebar Right -->
+}
+<script src="~/Scripts/custom/SendSMS.js"></script>

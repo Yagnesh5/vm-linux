@@ -1,0 +1,51 @@
+﻿@model OnlineRecruitment_Main.Models.ForgotViewModel
+@{
+    ViewBag.Title = "ResetPsdByForget";
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+}
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "Resetpsdsubmitform", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="alert alert-info show hidden" id="EmailConfirmation">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h1><strong>Forgot Password Confirmation.</strong></h1>
+        <strong>Info!</strong> Please check your email to reset your password.
+    </div>
+    <div class="login-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center m-b-md">
+                    <h3>RESET PASSWORD</h3>
+                    <small>Please fill the form to reset your password</small>
+                </div>
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <form action="#" id="loginForm">
+                            @Html.HiddenFor(x => x.UserId)
+                            <div class="form-group">
+                                <label class="control-label" for="newPassword">Password</label>
+                                <input type="password" placeholder="******" title="Please enter you new password" required="" value="" name="newPassword" id="newPassword" class="form-control">
+                                <span class="help-block small">Your new Password</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="Confirmpassword">Confirm Password</label>
+                                <input type="password" placeholder="******" title="Please enter you new password" required="" value="" name="Confirmpassword" id="Confirmpassword" class="form-control">
+                                <span class="help-block small">Your Confirm password</span>
+                            </div>
+                            <button class="btn btn-success btn-block" type="submit" id="btnRestpsd">Reset password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <strong>Vrecruit</strong> - Responsive WebApp <br /> 2019 Copyright Vrecruit
+            </div>
+        </div>
+    </div>
+}
+    <link href="~/Vendor/toastr/build/toastr.min.css" rel="stylesheet" />
+    <script src="~/Vendor/toastr/build/toastr.min.js"></script>
+    <script src="~/Scripts/custom/Password.js"></script>

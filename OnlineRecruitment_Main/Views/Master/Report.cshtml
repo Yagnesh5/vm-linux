@@ -1,0 +1,388 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    int cmpid = 0;
+    if (Session["currentCompanyId"] != null)
+    {
+        cmpid = Convert.ToInt32(Session["currentCompanyId"]);
+    }
+    string CurrentRole = string.Empty;
+    if (Session["CurrentRole"] != null)
+    {
+        CurrentRole = Session["CurrentRole"].ToString();
+    }
+}
+
+@*<div class="small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                        <li class="active">
+                            <span>Report</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    Report
+                </h2>
+                <small></small>
+            </div>
+        </div>
+    </div>*@
+<div class="content" style="padding-left: 0px; padding-right: 0px;">
+    <div id="userdetailsdata">
+        <div class="col-md-12" style="text-align:center">
+            <div class="col-md-9">
+                <label class="col-sm-2 col-form-label text-left"> Company :  </label>
+                <select class="form-control" id="ddlCompany" style="width:400px;" onchange="companyChange()"></select>
+            </div>
+
+            <div class="col-md-3">
+                <div class="text-right m-t-xs">
+                    <button class="btn btn-success" type="submit" id="btnSubmit"><strong>Apply Filter</strong></button>
+                    <button class="btn btn-success" type="submit" id="btnReset"><strong>Reset</strong></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top: 25px;">
+            <div class="col-md-10 container" style="text-align: center;">
+                <div class="row justify-content-center">
+                    <div class="col-md-2" style="padding-left: 15px; padding-right: 5px;">
+                        <div class="card report-card">
+                            <div class="card-body card-counter">
+                                <h3 class="my-3" style="font-weight: bold;" id="TotalCandidate"> </h3>
+                                <div class="float-right">
+                                    <i class=" "> @*<img src="~/Content/img/tr-icon.jpg" />*@ </i></div><span class="badge badge-success font9">
+                                        TOTAL CANDIDATE </span>
+                                        @*<p class="mb-0 text-muted text-truncate"><span class="text-success">$ 1705M </span> Total Candidate </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="TotalCliets"> </h3>
+                                    <div class="float-right"><i class=""> @*<img src="~/Content/img/ts-icon.jpg" />*@</i></div><span class="badge badge-secondary font9">TOTAL CLIENTS </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-danger">$ 1705M </span> Total Jobs </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="TotalJobs"> </h3>
+                                    <div class="float-right"><i class=""> @*<img src="~/Content/img/ts-icon.jpg" />*@</i></div><span class="badge badge-info font9">TOTAL JOBS </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-danger">$ 1705M </span> Total Jobs </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="TotalPositions"></h3>
+                                    <div class="float-right"><i class=""> @*<img src="~/Content/img/sc-icon.jpg" />*@</i></div><span class="badge badge-primary font9">TOTAL POSITIONS </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-danger">$ 9.15 </span> Total Shortlisted </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="ShortListedCount"></h3>
+                                    <div class="float-right"><i class=""> @*<img src="~/Content/img/sc-icon.jpg" />*@</i></div><span class="badge badge-warning font9">TOTAL SHORTLISTED </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-danger">$ 9.15 </span> Total Shortlisted </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="interviewedCount"></h3>
+                                    <div class="float-right"><i class="">@*<img src="~/Content/img/dp-icon.jpg" />*@</i></div><span class="badge badge-success font9">TOTAL INTERVIEWED </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-success">100% </span> Total Interviewed </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="joinedCount"></h3>
+                                    <div class="float-right"><i class="">@*<img src="~/Content/img/dp-icon.jpg" />*@</i></div><span class="badge badge-success font9">TOTAL JOINED </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-success">100% </span> Total Joined </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 15px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="rejectedCount"></h3>
+                                    <div class="float-right"><i class="">@*<img src="~/Content/img/dp-icon.jpg" />*@</i></div><span class="badge badge-danger font9">TOTAL REJECTED </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-success">100% </span> Total Rejected </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-md-2" style="padding-left: 5px; padding-right: 5px;">
+                            <div class="card report-card">
+                                <div class="card-body card-counter">
+                                    <h3 class="my-3" style="font-weight: bold;" id="TotalCalls"> </h3>
+                                    <div class="float-right"><i class=""> @*<img src="~/Content/img/ts-icon.jpg" />*@</i></div><span class="badge badge-info font9">TOTAL CALLS </span>
+                                    @*<p class="mb-0 text-muted text-truncate"><span class="text-danger">$ 1705M </span> Total Calls </p>*@
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!--end page-title-box-->
+                        </div>
+                        <!--end col-->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="hpanel">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <div class="small-header">
+                                            <div class="hpanel">
+                                                <div class="panel-body">
+                                                    <h2 class="font-light m-b-xs">
+                                                        Clients / Jobs
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table id="tblDatatable" class="display table table-bordered" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Client Name</th>
+                                                    <th>No. of Open Positions</th>
+                                                    <th>Skill</th>
+                                                    <th>Job Target Date</th>
+                                                    <th>Job Status</th>
+                                                    <th>Updated By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="hpanel">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <div class="small-header">
+                                            <div class="hpanel">
+                                                <div class="panel-body">
+                                                    <h2 class="font-light m-b-xs">
+                                                        Candidates
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table id="tblCandDatatable" class="display table table-bordered" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Candidate Name</th>
+                                                    <th>Designation</th>
+                                                    <th>E-Mail</th>
+                                                    <th>Phone</th>
+                                                    <th>Updated</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="hpanel">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <div class="small-header">
+                                            <div class="hpanel">
+                                                <div class="panel-body">
+                                                    <h2 class="font-light m-b-xs">
+                                                        MCaller Data
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table id="tblMCallerDatatable" class="display table table-bordered" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Contact Type</th>
+                                                    <th>Mobile</th>
+                                                    <th>Call Type</th>
+                                                    <th>Date TIme</th>
+                                                    <th>Status</th>
+                                                    <th>Call Duration (Seconds)</th>
+                                                    <th>Remarks</th>
+                                                    <th>Next Action</th>
+                                                    <th>Called By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="page-title-box">
+                        <div class="">
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-form-label text-left"> Status </label>
+                                <div class="col-sm-12">
+                                    <select class="form-control" id="ddlActive" size=2></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-form-label text-left"> Recruiters </label>
+                                <div class="col-sm-12">
+                                    <select class="form-control" id="ddlUsers" multiple size=10></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-form-label text-left"> Clients </label>
+                                <div class="col-sm-12">
+                                    <select class="form-control" id="ddlClients" multiple size=10></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-form-label text-left"> Duration </label>
+                                <div class="col-sm-12">
+                                    <select class="form-control" id="ddlDuration" size=4>
+                                        <option value="7">Last 7 Days</option>
+                                        <option value="15">Last 15 Days</option>
+                                        <option value="30">Last 30 Days</option>
+                                        <option value="AllTime">All Time</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        @*<div class="col-md-4">
+                <input type="text" class="form-control" id="searchText" placeholder="Enter Company Name">
+            </div>
+            <div class="col-md-3">
+                <button type="button" id="btnSearch2" class="btn btn-raised btn-primary btn-block">Get Report</button>
+            </div>*@
+    </div>
+
+    <div class="row" id="divReport">
+
+    </div>
+
+    @section Scripts{
+        <script src="~/Scripts/jquery-3.3.1.js"></script>
+
+        <script>
+
+            $(function () {
+                $('#btnSearch2').click(function () {
+
+                    var searchText = $("#searchText").val();
+
+                    //ASPX page URL to load report
+                    var src = '../reports/vRecruitReport.aspx?';
+                    //We can add parameters here
+                    src = src + "searchText=" + searchText
+
+                    //We can append more than one parameter like below
+                    //var companyId = 1
+                    //src = src + "compnayID=" + companyId
+
+                    //Create a dynamic iframe here and append this to div tag
+                    var iframe = '<iframe id="reportFrame" width="100%" height="800px" scrolling="no" frameborder="0" src="' + src + '" allowfullscreen></iframe>';
+                    $("#divReport").html(iframe);
+                });
+            });
+
+        </script>
+
+        <script src="~/Scripts/custom/Report.js"></script>
+
+        <!-- Primary HOMER style -->
+
+
+        @Styles.Render("~/bundles/datatables/css")
+        @Styles.Render("~/bundles/ladda/css")
+        <!-- Section for main scripts render -->
+
+        @Scripts.Render("~/bundles/bootstrap/js")
+
+        @Scripts.Render("~/bundles/sweetAlert/js")
+        @Scripts.Render("~/bundles/toastr/js")
+        @Scripts.Render("~/bundles/datatables/js")
+        @Scripts.Render("~/bundles/datatablesBootstrap/js")
+        @Scripts.Render("~/bundles/datatablesPlugins/js")
+        @Scripts.Render("~/bundles/ladda/js")
+        <!-- Handler for local scripts -->
+        @*@RenderSection("scripts", required: false)*@
+        <style>
+            .btn-group {
+                float: left !important;
+            }
+        </style>
+    }
+

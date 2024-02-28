@@ -1,0 +1,80 @@
+﻿@model IEnumerable<vrecruit.DataBase.ViewModel.ActivityVM>
+@foreach (var item in Model)
+{
+    <div id="CanActivity">
+        <button class="mycollapsible">JobName : @item.JobName </button>
+        <div class="mycontent">
+            
+            <div class="row clsUpdateActDiv" id="@item.JobId">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Activity</label>
+                        <select name="ActivityType" class="drpActivity form-control" id="drp_@item.JobId" data-data="@item.JobId">
+                            <option value=" ">Select Activity</option>
+                            @foreach (var actType in item.ActivityTypeList)
+                            {
+                                <option value="@actType.ActivityType1">@actType.ActivityType1</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="hidden" id="ActivityTypeData" />
+                </div>
+                <div class="form-group col-md-4 clsdatepicker" id="">
+                    <label>Activity Date</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        <input type="text" name="ActivityDate" id="ActivityDate_@item.JobId" class="form-control datepicker" required />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button style="margin-top: 26px;" class="btn btn-warning btn-sm btnaddUppActivity" data-data="@item.CandId" data-ClientId="@item.ClientIds" data-JobId="@item.JobId" data-UserId="@item.UserId" data-CompanyId="@item.CompanyId"> Update Activity </button>
+                </div>
+            </div>
+            <div class="row hidden activityTextDiv_@item.JobId">
+                <div class="col-md-2">
+                    <label>Activity</label>
+                </div>
+                <div class="form-group col-md-10">
+                    <textarea name="Activity" id="Activity_@item.JobId" class="form-control" rows="4" cols="50"></textarea>
+                </div>
+            </div>
+
+            @foreach (var activity in item.Activities)
+            {
+                <div class="row" style="background-color:azure">
+                    <div class="hpanel">
+                        <div class="v-timeline vertical-container animate-panel" data-child="vertical-timeline-block" data-delay="1">
+                            <div class="vertical-timeline-block">
+                                @if (activity.ActivityComplete == true)
+                                {
+                                    <div class="vertical-timeline-icon" style="color: #62cb31;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="vertical-timeline-icon" style="color: red;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                }
+
+                                <div class="vertical-timeline-content">
+                                    <div class="p-sm">
+                                        <span class="vertical-date pull-right"> <br /> <small>@activity.ActivityDate</small> </span>
+                                        <h6> <a href="#" class="clsActivityDetails" id="@activity.ActivityId"><u>@activity.ActivityType</u></a></h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <hr />
+    </div>
+}
+
+<link href="~/Content/CustomCss/Candidate.css" rel="stylesheet" />
+<script src="~/Scripts/custom/Activity.js"></script>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<vrecruit.DataBase.ViewModel.QuestionAnswerVM>
+@{ 
+    int i = 1;
+}
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div>
+               @i .  @item.Question
+            </div>
+            <ul>
+                @foreach (var CorrectAns in item.CorrectAnswerList)
+                {
+                <li>Correct Answer : <span style="color: #62cb30;">@CorrectAns</span></li>
+                }
+            </ul>
+            <ul>
+                @foreach (var SeleAns in item.SelectedAnswerList)
+                {
+                    <li>Candidate Selected Answer :<span style="color: orange;">@SeleAns</span> </li>
+                }
+            </ul>
+        </div>
+        i++;
+    }
+
+</div>

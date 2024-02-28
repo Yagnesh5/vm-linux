@@ -1,0 +1,246 @@
+﻿@model  IEnumerable<vrecruit.DataBase.ViewModel.QuestionAnswerVM>
+@{
+    ViewBag.Title = "CandidateTest";
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    var count = Model.Count();
+    var cnt = 1;
+    var cntchk = 1;
+    var date = DateTime.Now.ToShortDateString();
+}
+<link href="~/Content/CustomCss/Candidate.css" rel="stylesheet" />
+<link href="~/Content/CustomCss/RadioButton_CheckBox.css" rel="stylesheet" />
+
+<div class="alert alert-success show hidden" id="subTestDiv">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Info!</strong> Thank you submit your test successfully. kingly check your email for result...!!!
+</div>
+<div id="MainDiv">
+    <div class="normalheader" id="Instruction">
+        <div class="hpanel">
+            @*<div class="panel-heading hbuilt">
+            </div>*@
+            <div class="alert alert-success" style="background-color: #62cb31;">
+                <strong style="color: white;">please read the instructions carefully before starting the test</strong>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="pull-right text-muted m-l-lg">
+                        <span><b>@date </b></span>
+                    </div>
+                    <div class="collapse in pull-left col-md-4" id="collapseExample">
+                        <div class="well well-lg">
+                            <h5 class="font-bold">Hello!</h5>
+                            Welcome to VRecruit Test.
+                            <br />
+                            Do reach out to us to in case of any queries.
+                            <br />
+                            Email: <span><a href="mailto:contact@vrecruit.com"><u class="text-success">contact@vrecruit.com</u></a>.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <label class="text-lg-left text-info"><strong>Things To Remember :</strong></label>
+            </div>
+            <div class="panel-body no-padding">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        Before Starting the test, Please close all chat windows, Screen-saver, etc. and make sure that you have a stable internet connection.
+                    </li>
+                    <li class="list-group-item ">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        Do not press the "F5" key while giving the test as this will make the test end suddendly and you will not be able to continue the test.
+                    </li>
+                    <li class="list-group-item">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        Aliquam ornareIf your computer system shuts down suddenly due to poer supply being disconnected, You can resume the test from the same question that you were attempting earlier. All your previous answers are already saved.
+                    </li>
+                    <li class="list-group-item">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        When resuming the test, follow the same steps which you took to start the test in the beginning using the same registration details.
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <label class="text-lg-left text-info"><strong>Instructions :</strong></label>
+            </div>
+            <div class="panel-body no-padding">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        Technical tests enable various companies to assess your ability to handle skills quickly and accurately.
+                    </li>
+                    <li class="list-group-item ">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        These tests consist of a range of questions to estimate your knowledge, skills and ability in your areas.
+                    </li>
+                    <li class="list-group-item">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        Test comprises of a single-choice, Multiple-choices answers and have a time limit.
+                    </li>
+                    <li class="list-group-item">
+                        @*<input type="checkbox" class="clsinstruction" />*@
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        Test will be end and submitted automatically if time limit is over.
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer text-right">
+                <button class="btn btn-sm btn-success" id="btnStart"> Start Test <i class="fa fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="normalheader hidden" id="qesheader">
+        <div class="hpanel">
+            <div class="panel-body">
+                <h2 class="font-light m-b-xs" style="color: #2196F3;">
+                    @*Stape <span id="quescnt">1</span>: Question Screen*@
+                    Question Screen
+                </h2>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "submitform", role = "form" }))
+    {
+
+        <div class="content">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <input type="hidden" value="@item.Candidateemail" id="canEmail" />
+                    <input type="hidden" value="@item.useremail" id="useremail" />
+
+                    <input type="hidden" id="count" name="count" value="@count" />
+                    <div class="col-md-9 hidden print_@cnt clsqueDiv" id="@cnt">
+                        <div class="hpanel">
+                            <div class="panel-body noselect" id="quesbody">
+                                <div class="tab-content">
+                                    <div id="note1" class="tab-pane active">
+                                        <h4>Question <span>@cnt</span>:</h4>
+                                        <h5> @item.Question</h5>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                @foreach (var itm in item.Answerlst)
+                                                {
+                                                    <input type="hidden" id="rightAns_@cnt" />
+                                                    <input type="hidden" id="SelectedAns_@cnt" />
+                                                    <div class="note-content">
+
+                                                        <table style="width: 100%; display: block;">
+                                                            <tr style="display: block;">
+                                                                @if (item.QuestionType == "Single Answer")
+                                                                {
+                                                                    <td class="" style="display: block;">
+                                                                        @*<div class="">
+                                                                                <input type="radio" name="@itm.QuestiondId" id="@itm.AnswerId" class="someClass_@cnt" data-queId="@itm.QuestiondId" data-ans="@itm.Answer1">
+                                                                                <label></label>
+                                                                            </div>*@
+                                                                        <label class="container">
+                                                                            @itm.Answer1
+                                                                            <input type="radio" name="@itm.QuestiondId" id="@itm.AnswerId" class="someClass_@cnt" data-queId="@itm.QuestiondId" data-ans="@itm.Answer1">
+                                                                            <span class="checkmark"></span>
+                                                                        </label>
+                                                                    </td>
+                                                                }
+                                                                @if (item.QuestionType == "Multi Answer")
+                                                                {
+                                                                    <td class="" style="display: block;">
+                                                                        @*<div class="">
+                                                                                <input type="checkbox" name="@itm.QuestiondId" id="@itm.AnswerId" class="someClass_@cnt" data-queId="@itm.QuestiondId" data-ans="@itm.Answer1">
+                                                                                <label></label>
+                                                                            </div>*@
+                                                                        <label class="container">
+                                                                            @itm.Answer1
+                                                                            <input type="checkbox" name="@itm.QuestiondId" id="@itm.AnswerId" class="someClass_@cnt" data-queId="@itm.QuestiondId" data-ans="@itm.Answer1">
+                                                                            <span class="checkmarkchk"></span>
+                                                                        </label>
+                                                                    </td>
+                                                                }
+                                                                @*<td style="padding:10px;"><h5> @itm.Answer1</h5></td>*@
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                }
+                                            </div>
+                                            @*<div class="col-lg-7">*@
+
+                                                @for (var i = 0; i < item.imagelist.Count; i++)
+                                                {
+                                                    <img src="@item.imagelist[i].Images" class="zoom" />
+                                                }
+
+                                            @*</div>
+                                            <div class="col-lg-1"></div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group" style="float:right">
+                                @*<button type="button" class="btn btn-sm btn-default btnPrevious" id="@cnt"><i class="fa fa-arrow-left"></i> Previous </button>*@
+                                <button type="button" class="btn btn-sm btn-default btnNext" id="@cnt">Next <i class="fa fa-arrow-right"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    cnt = cnt + 1;
+
+                }
+
+                <div class="col-md-3 hidden" id="quedone">
+                    <div class="hpanel panel-group">
+                        <div class="panel-body">
+                            <div class="text-center text-muted font-bold">Time Left :<span><b><small class="pull-right text-muted" id="countdown"></small></b></span></div>
+                        </div>
+                        <div id="notes" class="collapse">
+                            <div class="panel-body note-link">
+                                <div href="#note1" data-toggle="tab">
+                                    <div class="small">
+                                        <div class="row">
+
+                                            @foreach (var item in Model)
+                                            {
+                                                <input type="hidden" id="second" value="@item.testSecond" />
+                                                <div class="col-md-3">
+                                                    <div style="padding-bottom:20px;">
+                                                        @*<span>@cntchk</span> <br /> <input type="checkbox" id="show_@cntchk">*@
+                                                        @*<a href="#" data-data="@cntchk" class="clsmovetoquestion">@cntchk</a> <br />*@
+                                                        @cntchk <br/>
+                                                        <label class="container">
+                                                            <input type="checkbox" id="show_@cntchk">
+                                                            <span class="checkmarkchk checkmarkchkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                cntchk = cntchk + 1;
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group" style="float:right">
+                                    <button class="btn btn-sm btn-default Submit" type="button" id="btnSubmit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<div class="color-line"></div>
+<script src="~/Scripts/custom/jquery.blockUI.js"></script>
+<script src="~/Scripts/custom/CandidateTest.js"></script>
+<script src="~/Scripts/custom/sweetalert.min.js"></script>

@@ -1,0 +1,725 @@
+﻿@model vrecruit.DataBase.ViewModel.CandidateVM
+@{
+    ViewBag.Title = "Candidate";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+
+
+<div class="small-header">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                    <li class="active">
+                        <span>Candidates </span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Candidate
+            </h2>
+            <small>Create Candidate here.</small>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "submitform", role = "form", enctype = "multipart/form-data" }))
+{
+    <div class="content" id="MainTestResultDive">
+        <div class="row">
+            <div class="col-lg-12" id="">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="clsCloseTestResult"><i class="fa fa-close"></i></a>
+                        </div>
+                        Candidate Test Sheet
+
+                    </div>
+                    <div class="panel-body">
+                        <div id="TestResultDiv">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="TestResultmodel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        @*<div id="TestResultDiv">
+                            </div>*@
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="canddatetestpopval">
+        <div class="modal-dialog" style="width:750px !important">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="CandidateTestDataTable" class="display table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Assign By</th>
+                                    <th>Submit Date</th>
+                                    <th>Score</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="popval">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>Hi XYZ,</p>
+                    <p>PFA the resume of candidate for the role of XYZ, XYZ Location</p>
+                    <p>Mentioned below is a brief synopsis of candidate's profile.</p>
+                    <p>Candidate Name : <label id="lblcandidatename"></label></p>
+                    <p>1. Total Experience: <label id="lbltotalexp"></label></p>
+                    <p>2. Current Organisation: <label id="lblcurrntorg"></label></p>
+                    <p>3. Current Designation: <label id="lblcrntdig"></label></p>
+                    <p>4. Educational Qualification: <label id="lbleduqua"></label></p>
+                    <p>5. Current CTC: <label id="lblcrnctc"></label> Lac(s) pa</p>
+                    <p>6. Expected CTC: <label id="lblexpctc"></label> Lac(s) pa</p>
+                    <p>7. Notice Period: <label id="lblnotice"></label> Days</p>
+                    <p>8. Current Location: <label id="lblcrnloc"></label>; Preferred Location: <label id="lblcrnpreloc"></label></p>
+                    <p>Kindly feel free to get in touch with us incase you require any further clarification or to organize an interview with the candidate.</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12 hidden" id="createDiv">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            @*<a class="showhide"><i class="fa fa-chevron-up"></i></a>*@
+                        </div>
+                        Candidate form
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="" class="p-m tab-pane active">
+                                <div class="row">
+
+
+
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            @Html.HiddenFor(x => x.CandidateId)
+                                            <input type="text" name="LastUpdateBy" id="LastUpdateBy" class="hidden" value="@Session["CurrentUserId"]" />
+                                            <input type="text" name="CompanyId" id="CompanyId" class="hidden" value="@Session["currentCompanyId"]" />                                            <div class="form-group col-lg-12">
+                                                @Html.HiddenFor(x => x.IsEdit)
+                                                @Html.HiddenFor(x => x.IsDelete)
+                                                @Html.HiddenFor(x => x.IsExport)
+                                                @Html.HiddenFor(x => x.IsPrint)
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Candidate Name</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        @Html.TextBoxFor(x => x.CandidateName, new { @class = "form-control", @placeholder = "Candidate Name", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> For Client</label>
+                                                    @*<select class="form-control" id="chkveg" multiple size=10></select>*@
+                                                    <div id="select7" class="select7_container">
+                                                        <div class="select7_arrow">&#9662;</div>
+                                                        <div class="select7_placeholder">Select...</div>
+                                                        <select class="select7_select" id="chkveg" onchange="add_selected_item(this, event);">
+                                                            @*<option class="select7_hide" value="filler"></option>*@
+                                                        </select>
+                                                        <div class="select7_items" id="selectedClientId"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Primary Skill</label>
+                                                    @Html.TextBoxFor(x => x.CandidateSkill, new { @class = "form-control", @placeholder = "Primary skill", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Education</label>
+                                                    @Html.TextBoxFor(x => x.Education, new { @class = "form-control", @placeholder = "Education", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>DOB</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                        </span>
+                                                        @Html.TextBoxFor(x => x.CandidateDOB, "{0:d-M-yyyy}", new { @class = "form-control datepicker", @placeholder = "DOB" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Email</label>
+                                                    @Html.TextBoxFor(x => x.CandidateEmail, new { @class = "form-control", @placeholder = "Email", required = "required" })
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Phone Number</label>
+                                                    @Html.TextBoxFor(x => x.CandidatePhone, new { @class = "form-control", @placeholder = "Phone Number", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Phone Number (Optional)</label>
+                                                    @Html.TextBoxFor(x => x.CandidatePhone2, new { @class = "form-control", @placeholder = "Phone Number" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                        <label><span style="color:red">*</span> Total Experience</label>
+                                                        <div style="display:flex;">
+                                                            <div style="display:flex;">
+                                                                @Html.TextBoxFor(x => x.CandidateExperienceYears, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:70%" })
+                                                                <label style="padding-left:4px; padding-top:9px"> Years</label>
+                                                            </div>
+                                                            <div style="display:flex;">
+                                                                @Html.TextBoxFor(x => x.CandidateExperienceMonths, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:70%" })
+                                                                <label style="padding-left:4px; padding-top:9px"> Months</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @*<div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Total Experience</label>
+                                                    <div class="form-inline form-group">
+                                                        <div style="width:50%">
+                                                            @Html.TextBoxFor(x => x.CandidateExperienceYears, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:70%" })
+                                                            <label> Years</label>
+                                                        </div>
+                                                        <div style="width:50%">
+                                                            @Html.TextBoxFor(x => x.CandidateExperienceMonths, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:70%" })
+                                                            <label> Months</label>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Relevant Experience</label>
+                                                    <div style="display:flex">
+                                                        @Html.TextBoxFor(x => x.Relevant_Exp, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:90%" })
+                                                        <label style="padding-left:4px;padding-top:9px">Years</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Current Location</label>
+                                                    @Html.TextBoxFor(x => x.CandidateLocation, new { @class = "form-control", @placeholder = "Current Location", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Preferred Location</label>
+                                                    @Html.TextBoxFor(x => x.Preferred_Location, new { @class = "form-control", @placeholder = "Preferred Location", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Current CTC</label>
+                                                    <div style="display:flex">
+                                                        @Html.TextBoxFor(x => x.CurrentCTC, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:80%" })
+                                                        <label style="padding-left:4px; padding-top:9px">Lac(s) pa</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Expected CTC</label>
+                                                    <div style="display:flex">
+                                                        @Html.TextBoxFor(x => x.ExpectedCTC, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:80%" })
+                                                        <label style="padding-left:4px; padding-top:9px">Lac(s) pa</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Any Offers In Hand</label>
+                                                    <div>
+                                                        @Html.TextBoxFor(x => x.OffersInHand, new { @class = "form-control", @placeholder = "0" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Current Organisation</label>
+                                                    <div>
+                                                        @Html.TextBoxFor(x => x.CurrentOrganisation, new { @class = "form-control", @placeholder = "Current Organisation", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Designation</label>
+                                                    <div>
+                                                        @Html.TextBoxFor(x => x.ClientDesignation, new { @class = "form-control", @placeholder = "Designation", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Notice Period</label>
+                                                    <div style="display:flex">
+                                                        @Html.TextBoxFor(x => x.NoticePeriod, new { @class = "form-control", @placeholder = "0", required = "required", @style = "width:90%" })
+                                                        <label style="padding-left:4px; padding-top:9px">Days</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Previous Organisation</label>
+                                                    @Html.TextBoxFor(x => x.CandidateLastJobChange, new { @class = "form-control", @placeholder = "Previous Organisation", required = "required" })
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Designation</label>
+                                                    <div class="">
+                                                        @Html.TextBoxFor(x => x.PreviousDesignation, new { @class = "form-control", @placeholder = "Designation", required = "required" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label><span style="color:red">*</span> Reason for Job Change</label>
+                                                    @Html.TextAreaFor(x => x.Last_Job_change_reason, new { @class = "form-control", @placeholder = "Reason for job change", required = "required" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+                                                    <label>Candidate SkypeId</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-skype" aria-hidden="true"></i></span>
+                                                        @Html.TextBoxFor(x => x.SkypeId, new { @class = "form-control", @placeholder = "Candidate SkypeId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-lg-4">
+                                                    <label>Buyout option</label>
+                                                    <label>
+                                                        @Html.RadioButtonFor(m => m.BuyoutOption, true, new { id = "BuyoutOptionYes" })
+                                                        yes
+                                                    </label>
+                                                    <label>
+                                                        @Html.RadioButtonFor(m => m.BuyoutOption, false, new { id = "BuyoutOptionNo", @checked = "checked" })
+                                                        No
+                                                    </label>
+                                                </div>
+                                                <div class="form-group col-lg-4">
+                                                    <label>Remarks</label>
+                                                    @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control", @placeholder = "Remarks" })
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-4">
+
+                                                    <div class="input-group">
+                                                        <label class="custom-file-label" for="inputGroupFile01"><span style="color:red">*</span> Upload Resume Here.</label>
+                                                        <input type="text" class="form-control file-upload-text" disabled placeholder="select a file..." required />
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success file-upload-btn" style="margin-top: 23px;">
+                                                                Browse...
+                                                                <input type="file" class="file-upload" name="myFile" id="CandidateResume" />
+                                                            </button>
+                                                        </span>
+
+
+                                                    </div>
+                                                    <p class="small m-t-md">
+                                                        <strong id="uprestext">Upload Resume Here.</strong>
+                                                        <strong><a href="#" class="clsdownload hidden" download id="editresume"><u>Download Resume!</u></a></strong>
+                                                    </p>
+                                                    <div id="divResumeList"></div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-4"></div>
+                                </div>
+                                <div class="text-right m-t-xs">
+                                    <button class="btn btn-warning hidden" type="submit" id="btnUpdate"><strong>Update</strong></button>
+                                    <button class="btn btn-success" type="submit" id="btnsubmit"><strong>Submit</strong></button>
+                                    <button type="button" class="btn btn-default" id="btncancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-t-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="detailsdata">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hpanel">
+                        <div class="panel-heading">
+                            <div class="row" style="padding-top: 14px;">
+                                <div class="col-md-8 no-gutter">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                            <input type="text" class="form-control" id="txtSearch" name="txtSearch" autocomplete="off" placeholder="Search Text...!!!" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-1 no-gutter ">
+                                    <button class="btn btn-success" type="button" id="btnSearch"><strong>Search</strong></button>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (Model.IsAdd == true)
+                                    {
+                                        <button class="btn btn-primary" type="button" id="btnIn"><strong>Add New Candidate</strong></button>
+                                    }
+                                </div>
+                                @*<div class="panel-tools">
+                                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                                    </div>*@
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="tblDatatable" class="display table table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Designation</th>
+                                            <th>Email</th>
+                                            <th>Phone Numbers</th>
+                                            <th>Download</th>
+                                            <th>Last Update Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center">
+        <img src="~/Images/loader.gif" id="loading" />
+    </div>
+
+    <div class="text-center">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="color-line"></div>
+                    <div class="modal-header text-center" style="padding:19px 30px">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="float: right;font-size: 20px;"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <h4 class="modal-title">Assign</h4>
+                        <small class="font-bold">Assign Activity To Candidate here....</small>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <div class="panel-body">
+                                <div class="ui-widget form-group">
+                                    <label>Activity Type</label>
+                                    @Html.HiddenFor(m => m.ClientCurrentRole)
+                                    @Html.DropDownListFor(m => m.ActivityType1, new SelectList(Model.ActivityTypeList, "ActivityType1", "ActivityType1", Model.ActivityTypeList), "Select ActivityType", new { @class = "form-control form-control-lg", required = "required", })
+                                </div>
+                                <div class="form-group hidden" id="TestNameDiv">
+                                    <label>Test Name</label>
+                                    @Html.DropDownListFor(m => m.TestName, new SelectList(Model.TestList, "TestName", "TestName", Model.TestList), "Select Test Name", new { @class = "js-source-states", @style = "width: 100%", required = "required" })
+                                </div>
+                                <div class="ui-widget form-group">
+                                    <input id="CanId" type="hidden" name="CanId">
+                                    <label>Client</label>
+                                    <input type="text" name="UserId" id="UserId" class="hidden" value="@Session["CurrentUserId"]" />
+                                    @if (Model.ClientCurrentRole == "CLIENT")
+                                    {
+                                        @Html.DropDownListFor(m => m.ClientId, new SelectList(Model.ClientList, "ClientId", "ClientName", Model.ClientList), new { @class = "form-control form-control-lg", required = "required" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(m => m.ClientId, new SelectList(Model.ClientList, "ClientId", "ClientName", Model.ClientList), "Select Client", new { @class = "form-control form-control-lg", required = "required" })
+                                    }
+
+                                </div>
+
+                                <div class="ui-widget form-group">
+                                    <label>Job</label>
+                                    <select id="JobId" class="form-control form-control-lg"></select>
+                                </div>
+
+                                <div class="form-group" id="TestNameDiv">
+                                    <label>Activity</label>
+                                    @Html.TextAreaFor(x => x.Activity1, new { @class = "form-control", @placeholder = "Activity", required = "required" })
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="ladda-button btn btn-primary" id="btnJobsubmit" data-style="contract"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+                        <button type="button" class="btn btn-warning hidden" id="btnJobUpdate">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <!-- test  -->
+
+
+
+        <div class="modal fade" id="myModal22" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+
+                        <div class="form-group">
+                            <label>Activity Type</label>
+                            @Html.DropDownListFor(m => m.ActivityType1, new SelectList(Model.ActivityTypeList, "ActivityType1", "ActivityType1", Model.ActivityTypeList), "Select ActivityType", new { @class = "js-source-states", @style = "width: 100%", required = "required" })
+                        </div>
+
+                        <div class="form-group hidden" id="TestNameDiv">
+                            <label>Test Name</label>
+                            @Html.DropDownListFor(m => m.TestName, new SelectList(Model.TestList, "TestName", "TestName", Model.TestList), "Select Test Name", new { @class = "js-source-states", @style = "width: 100%", required = "required" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Job</label>
+                            @*<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>*@
+                            <select class="js-source-states" style="width: 100%" id="JobId" name="JobId"></select>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- Sidebar Right -->
+        <div class="modal fade right" id="sidebar-right" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Candidate Activity</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="myPartialContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="modal fade modal-md" id="ActivityDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="color-line"></div>
+                        <div class="modal-header text-center" style="padding:0px 0px">
+                            <h4 class="modal-title">Activity Details</h4>
+                            <small class="font-bold">You can see paticular activity details here....</small>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                <input type="hidden" name="ActivityId" id="ActivityId" class="form-control" />
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label>Activity Type</label>
+                                        <select class="js-source-states" style="width: 100%" id="detailsActivityType" name="detailsActivityType" disabled>
+                                            <option value="">Select Activity Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Activity</label>
+                                        <input type="text" name="Activity" id="Activity" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Activity Date</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" name="ActivityDate" id="ActivityDate" class="form-control datepicker" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Activity Remark</label>
+                                        <textarea rows="4" cols="60" id="ActivityRemark" name="ActivityRemark" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Activity Complete</label>
+                                        <select class="js-source-states" style="width: 100%" id="ActivityComplete" name="ActivityComplete">
+                                            <option value="">Select Status</option>
+                                            <option value="False">No</option>
+                                            <option value="True">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button class="ladda-button btn btn-primary" id="btActivityDetailsnsubmit" data-style="contract"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/CustomCss/CreateCandidate.css" rel="stylesheet" />
+<style>
+    td.details-control {
+        background: url('../../Icons/Custom/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url('../../Icons/Custom/details_close.png') no-repeat center center;
+    }
+
+    .file-upload {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+</style>
+@section Scripts{
+    @*<script src="~/Content/MultiSelect/bootstrap-3.3.2.min.js"></script>*@
+    @*<script src="~/Content/MultiSelect/bootstrap-multiselect.js"></script>
+        <script src="~/Content/MultiSelect/jquery.multiselect.js"></script>*@
+    @*<script src="~/Scripts/choices.js"></script>*@
+    <script src="~/Content/MultiSelect/select7.js"></script>
+    <script src="~/Scripts/custom/Candidate.js"></script>
+    <script>
+
+
+        window.document.onkeydown = function (e) {
+            if (!e) {
+                e = event;
+            }
+            if (e.keyCode === 27) {
+                lightbox_close();
+            }
+        };
+
+        function lightbox_open(elmnt) {
+            //var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+            //window.scrollTo(0, 0);
+            //document.getElementById('light').style.display = 'block';
+            //document.getElementById('fade').style.display = 'block';
+            //lightBoxVideo.play();
+
+            var lightBoxVideo = elmnt.parentElement.parentElement.childNodes[2].childNodes[1];
+            window.scrollTo(0, 0);
+            lightBoxVideo.parentElement.style.display = 'block';
+            lightBoxVideo.parentElement.parentElement.childNodes[3].style.display = 'block';
+            lightBoxVideo.play();
+        }
+
+        function lightbox_close(elmnt) {
+            //var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+            //document.getElementById('light').style.display = 'none';
+            //document.getElementById('fade').style.display = 'none';
+            //lightBoxVideo.pause();
+
+            var lightBoxVideo = elmnt.parentElement.childNodes[1];
+            lightBoxVideo.parentElement.style.display = 'none';
+            lightBoxVideo.parentElement.parentElement.childNodes[3].style.display = 'none';
+            lightBoxVideo.pause();
+        }
+    </script>
+
+    <script>
+        function initializeFileUploads() {
+            $('.file-upload').change(function () {
+                var file = $(this).val();
+                $(this).closest('.input-group').find('.file-upload-text').val(file);
+            });
+            $('.file-upload-btn').click(function () {
+                $(this).find('.file-upload').trigger('click');
+            });
+            $('.file-upload').click(function (e) {
+                e.stopPropagation();
+            });
+        }
+
+
+        // On document load:
+        $(function () {
+            initializeFileUploads();
+        });
+
+    </script>
+
+
+    @*<script>
+
+            var modalInstance = $modal.open({
+                templateUrl: 'views/modal/modal_example2.html',
+                controller: ModalInstanceCtrl,
+                windowClass: "hmodal-success"
+            });
+        </script>*@
+
+}
+@*<link href="~/Content/MultiSelect/bootstrap-multiselect.css" rel="stylesheet" />
+    <link href="~/Content/MultiSelect/bootstrap-3.3.2.min.css" rel="stylesheet" />*@
+@*<link href="~/Content/MultiSelect/choices.css" rel="stylesheet" />*@
+<link href="~/Content/MultiSelect/select7.css" rel="stylesheet" />
+<link href="~/Content/VideoUploadAssets/VideoPlayer.css" rel="stylesheet" />

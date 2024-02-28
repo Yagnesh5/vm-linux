@@ -1,0 +1,145 @@
+﻿@model OnlineRecruitment_Main.CustomModels.RolesViewModel
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+<link href="~/Content/CustomCss/Switch.css" rel="stylesheet" />
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "submitRoleData", role = "form" }))
+{
+    <div class="small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="@Url.Action("Dashboard", "Master")">Dashboard</a></li>
+                        <li class="active">
+                            <span>Roles</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                     Roles
+                </h2>
+                <small>Create Roles here.</small>
+            </div>
+        </div>
+    </div>
+
+
+    @Html.HiddenFor(x => x.IsEdit)
+    @Html.HiddenFor(x => x.IsDelete)
+    @Html.HiddenFor(x => x.IsExport)
+    @Html.HiddenFor(x => x.IsPrint)
+
+    <div class="content" id="maincontent">
+        <div class="row"  style="padding-top: 14px;">
+            @if (Model.IsAdd == true)
+            {
+                <div class="col-lg-3">
+                    <div class="hpanel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                               
+                            </div>
+                            Create Role
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" id="form">
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <input type="text" name="Name" id="Name" placeholder="Enter role" class="form-control" required>
+                                    <input type="text" name="Id" id="Id" class="hidden">
+
+                                    <input type="hidden" id="PermissionRol" />
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-primary m-t-n-xs" type="submit" id="btnRolesubmit"><strong>Submit</strong></button>
+                                    <button class="btn btn-sm btn-warning m-t-n-xs hidden" type="button" id="btnUpdate"><strong>Update</strong></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="col-lg-9">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                           
+                        </div>
+                        Role List
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="tblDatatable" cellpadding="1" cellspacing="1" class="table" id="tblData">
+                                <thead>
+                                    <tr>
+                                        <th>Roles</th>
+                                        <th>Created By</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblBody"></tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content hidden" id="Accesscontent">
+        <div class="row">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                    <label>Assign Access</label> | <label id="lbluser"></label>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <input type="text" class="form-control input-sm m-b-md" id="filter" placeholder="Search...">
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-sm btn-primary m-t-n-xs" type="button" id="btnaccessclose"><strong>Close</strong></button>
+                        </div>
+                    </div>
+                    <table id="tblpermission" class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter=#filter>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Add</th>
+                                <th>View</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                                <th>Print</th>
+                                <th>Export</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot id="tfoot">
+                            <tr>
+                                <td colspan="5">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center">
+        <img src="~/Images/loader.gif" id="loading" />
+    </div>
+}
+<script src="~/Scripts/custom/Roles.js"></script>
+
+

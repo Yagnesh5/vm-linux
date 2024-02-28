@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Vrecruit | @ViewBag.Title</title>
+    <!-- Primary vendor style -->
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <!-- Primary HOMER style -->
+
+
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/validation/js")
+
+    <script src="~/Vendor/jquery-validation/jquery.validate.min.js"></script>
+    <link href="~/Vendor/summernote/dist/summernote.css" rel="stylesheet" />
+    <script src="~/Vendor/summernote/dist/summernote.js"></script>
+    @*@Styles.Render("~/bundles/summernote/css")
+        @Scripts.Render("~/bundles/summernote/js")*@
+
+    @Styles.Render("~/bundles/sweetAlert/css")
+    @Styles.Render("~/bundles/toastr/css")
+
+    @Styles.Render("~/bundles/homer/css")
+
+
+
+    @Styles.Render("~/bundles/datatables/css")
+
+
+    @Styles.Render("~/bundles/ladda/css")
+
+
+    @Styles.Render("~/bundles/xeditable/css")
+    @Styles.Render("~/bundles/select2/css")
+    @Styles.Render("~/bundles/touchspin/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/bootstrapCheckbox/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+    @Styles.Render("~/bundles/fooTable/css")
+    <script>
+        var currentCompanyId = '@Session["currentCompanyId"]';
+            var CurrentRole = '@Session["CurrentRole"]';
+            var CurrentUserId = '@Session["CurrentUserId"]';
+        var currentCompanyName = '@Session["currentCompanyName"]';
+        if (currentCompanyId == '' || CurrentRole == '' || CurrentUserId == '' || currentCompanyName == '') {
+            location.href = "/Account/LogOff";
+        }
+        var BaseUrl = '@System.Configuration.ConfigurationManager.AppSettings["BaseUrl"].ToString()';
+    </script>
+</head>
+<body class="@Html.PageClass()">
+
+    <!-- Simple splash screen-->
+    <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Homer - Responsive Admin Theme</h1><p>Special Admin Theme for small and medium webapp with very clean and aesthetic style and feel. </p><div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>
+    <!--[if lt IE 7]>
+    <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Header -->
+    <div id="header">
+        @Html.Partial("_Header")
+    </div>
+
+    <!-- Navigation -->
+    <aside id="menu">
+
+        @Html.Partial("_Navigation")
+    </aside>
+
+    <!-- Main view  -->
+    <div id="wrapper">
+        @RenderBody()
+
+        <!-- Right Sidebar -->
+        @Html.Partial("_Right_Sidebar")
+
+        <!-- Footer-->
+        @Html.Partial("_Footer")
+    </div>
+    <div>
+
+        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "Changepsdform", role = "form" }))
+        {
+            <div class="text-center">
+                <div class="modal fade" id="ChangePasswordDiv" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="color-line"></div>
+                            <div class="modal-header text-center" style="padding:0px 0px">
+                                <h4 class="modal-title">Change Password</h4>
+                                <small class="font-bold">You change your password here...</small>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="control-label">Current Password</label>
+                                            <input type="password" placeholder="******" title="Please enter your password" required="" value="" name="CurrentPassword" id="CurrentPassword" class="form-control">
+                                            <span class="help-block small">Your current password to app</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">New Password</label>
+                                            <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="Password" id="Password" class="form-control">
+                                            <span class="help-block small">your strong password</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">confirm Password</label>
+                                            <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="ConfirmPassword" id="ConfirmPassword" class="form-control">
+                                            <span class="help-block small">your strong confirm password</span>
+                                        </div>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button class="ladda-button btn btn-primary" id="btnchnagepasswordsubmit" data-style="contract"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- Section for main scripts render -->
+
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+
+    @Scripts.Render("~/bundles/sweetAlert/js")
+    @Scripts.Render("~/bundles/toastr/js")
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+
+
+    @Scripts.Render("~/bundles/flot/js")
+    @Scripts.Render("~/bundles/jqueryui/js")
+    @Scripts.Render("~/bundles/fooTable/js")
+    <script src="~/Scripts/custom/jquery.mask.js"></script>
+    @Scripts.Render("~/bundles/ladda/js")
+
+
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/xeditable/js")
+    @Scripts.Render("~/bundles/select2/js")
+    @Scripts.Render("~/bundles/touchspin/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    @Scripts.Render("~/bundles/flot/js")
+    <script src="~/Scripts/custom/jquery.blockUI.js"></script>
+    <script src="~/Scripts/custom/jquery.fileDownload.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+
+            // Bind normal buttons
+            $('.ladda-button').ladda('bind', { timeout: 2000 });
+
+            // Bind progress buttons and simulate loading progress
+            Ladda.bind('.progress-demo .ladda-button', {
+                callback: function (instance) {
+                    var progress = 0;
+                    var interval = setInterval(function () {
+                        progress = Math.min(progress + Math.random() * 0.1, 1);
+                        instance.setProgress(progress);
+
+                        if (progress === 1) {
+                            instance.stop();
+                            clearInterval(interval);
+                        }
+                    }, 200);
+                }
+            });
+
+
+            var l = $('.ladda-button-demo').ladda();
+
+            l.click(function () {
+                // Start loading
+                l.ladda('start');
+
+                // Timeout example
+                // Do something in backend and then stop ladda
+                setTimeout(function () {
+                    l.ladda('stop');
+                }, 12000)
+
+
+            });
+
+        });
+    </script>
+    <script>
+        $(".js-source-states").select2();
+        $(".js-source-states-2").select2();
+        $('.datepicker').datepicker({
+            format: 'd-M-yyyy',
+            autoclose: true
+        });
+    </script>
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+
+
+    <script src="~/Scripts/custom/Password.js"></script>
+</body>
+</html>
